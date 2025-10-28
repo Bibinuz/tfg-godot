@@ -1,0 +1,40 @@
+[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://c5nxfigtmxg37"]
+
+[ext_resource type="Texture2D" uid="uid://b6bqlik33l175" path="res://assets/texture.png" id="1_8v3lr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d4gt0"]
+resource_name = "golf"
+albedo_texture = ExtResource("1_8v3lr")
+roughness = 0.09607843
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n2hof"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 0.4, 2),
+"format": 34896613377,
+"index_count": 102,
+"index_data": PackedByteArray("AAABAAIAAAACAAMAAgABAAQAAgAEAAUABQAEAAYAAQAGAAQABQAGAAcAAQAIAAYACQAIAAEACQABAAoACgABAAAACwAJAAoACwAMAA0ACwAOAAwACwAKAA4ADgAPAAwADgAKAA8AEAAPAAoAEAAKABEACgAAABEAEAARABIAEAASABMAEwASABQAEQAUABIAEwAUABUAEQAWABQAEQAXABYAEQAAABcAGAAXAAAAGAAAABkAGQAAAAMAGQADABoAGAAZABoAGAAaABsA"),
+"name": "golf",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("ZeYAAGXmAABl5gAAmRkAAP//AACZGQAA//8AAGXmAABl5v//mRkAAP////+ZGQAAZeb//wAAAAD/////AAAAAGXmAAAAAAAAmRkAAAAAAACZGQAAmRkAAJkZ//8AAAAAAAD//5kZAAAAAP//AAAAAJkZ//+ZGQAAAAAAAJkZAAAAAAAAZeYAAJkZAABl5gAAmRn//2XmAAAAAP//ZeYAAJkZ/////wAAAAD/////AACZGQAA//8AAGXmAAD//wAAZeb/////AABl5v//ZeYAAP////9l5gAA////////AAA=")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "Plane"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 0.4, 2),
+"attribute_data": PackedByteArray("ZhZldmYWZXaZSWV2mUlldplJZXaZSWV2ZhZldmYWZXbL3MxsMsPMbDLDMlPL3DJTy9zMbDLDzGwywzJTy9wyU8vczGwyw8xsMsMyU8vcMlOZSWV2mUlldplJZXaZSWV2MsMyUzLDzGzL3Mxsy9wyUzLDMlMyw8xsy9zMbMvcMlMywzJTMsPMbMvczGzL3DJTmUlldplJZXaZSZipmUmYqTLDMlMyw8xsy9zMbMvcMlMywzJTMsPMbMvczGzL3DJTMsMyUzLDzGzL3Mxsy9wyU5lJmKmZSZipmUlldplJZXbL3MxsMsPMbDLDMlPL3DJTy9zMbDLDzGwywzJTy9wyU8vczGwyw8xsMsMyU8vcMlM="),
+"format": 34896613399,
+"index_count": 102,
+"index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMAFAAVABYAFAAWABcAGAAZABoAGAAaABsAHAAdAB4AHAAeAB8AIAAhACIAIAAiACMAJAAlACYAJAAmACcAKAApACoAKAAqACsALAAtAC4ALAAuAC8AMAAxADIAMAAyADMANAA1ADYANAA2ADcAOAA5ADoAOAA6ADsAPAA9AD4APAA+AD8AQABBAEIAQABCAEMA"),
+"material": SubResource("StandardMaterial3D_d4gt0"),
+"name": "golf",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 68,
+"vertex_data": PackedByteArray("ZeYAAGXm/79l5gAAmRn/v///AACZGf+///8AAGXm/78AAAAAZeb/vwAAAACZGf+/mRkAAJkZ/7+ZGQAAZeb/v/////+ZGf+/Zeb//5kZ/79l5v//AAD/v/////8AAP+/ZeYAAJkZ/79l5gAAAAD/v2Xm//8AAP+/Zeb//5kZ/7///wAAmRkAgGXmAACZGQCAZeb//5kZAID/////mRkAgJkZAACZGf+/ZeYAAJkZ/79l5gAAZeb/v5kZAABl5v+/mRn//wAAAACZGf//mRkAAAAA//+ZGQAAAAD//wAAAACZGf//AAAAAJkZAAAAAAAAmRkAAJkZAACZGf//mRkAAJkZ//+ZGQAAmRkAAJkZAAAAAAAAmRkAAAAA//+ZGQAAmRkAAAAA/79l5gAAAAD/v2XmAACZGf+/mRkAAJkZ/79l5v//////P2Xm//9l5v8//////2Xm/z//////////P2Xm/////wAAZeYAAP//AABl5gAAZeYAAGXm//9l5gAAZeb//2XmAABl5gAAZeYAAP//AABl5gAA/////2XmAACZGQAAZeb/v2XmAABl5v+/ZeYAAP///7+ZGQAA////vwAA//9l5v//mRn//2Xm//+ZGf///////wAA////////mRkAAGXm/7+ZGQAA////v5kZ//////+/mRn//2Xm/78AAAAAZeb//5kZAABl5v//mRn//2Xm//8AAP//Zeb//////3////9/////f////3////9/////f////3////9/////f////3////9/////f/9/////f////3////9/////f////3////9/////f///////f////3////9/////f/9//7//f/+//3//v/9//7//v/9//7//f/+//3//v/9//3//f/9//3//f/9//3//f////3////9/////f////3////9/////f////3////9//z//f/8//3//P/9//z//f////3////9/////f////3////9/////f////3////9//3//v/9//7//f/+//3//v/9/AAD/fwAA/38AAP9/AAD/f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_n2hof")

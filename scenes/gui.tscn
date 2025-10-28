@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnf0u2ljad6tc"]
+
+[ext_resource type="Script" uid="uid://d1ofjus5lumpq" path="res://scripts/gui/context_component.gd" id="1_mfius"]
+[ext_resource type="Texture2D" uid="uid://bbijotqdskudn" path="res://assets/input_prompts/keyboard/keyboard_e.png" id="2_ynd5l"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ContextComponent" type="CenterContainer" parent="." node_paths=PackedStringArray("icon", "context")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.05
+offset_top = 100.0
+offset_right = 0.050048828
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mfius")
+icon = NodePath("HBoxContainer/TextureRect")
+context = NodePath("HBoxContainer/Label")
+default_icon = ExtResource("2_ynd5l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ContextComponent"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ContextComponent/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ynd5l")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="ContextComponent/HBoxContainer"]
+layout_mode = 2
+text = "Lorem ipsum"
