@@ -14,7 +14,7 @@ func _ready() -> void:
 	main_object = parent.get_parent()
 	connect_parent()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 func in_range() -> void:

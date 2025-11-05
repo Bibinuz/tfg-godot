@@ -2,3 +2,7 @@ extends Node
 
 signal interaction_focused
 signal interaction_unfocused
+
+signal connected_shaft
+signal update_shaft
+signal disconnected_shaft

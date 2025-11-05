@@ -1,15 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://b42n1nedoytet"]
+[gd_scene load_steps=8 format=3 uid="uid://b42n1nedoytet"]
 
 [ext_resource type="Script" uid="uid://563d5nfb84m6" path="res://scripts/machineScripts/generator.gd" id="1_1ijy3"]
 [ext_resource type="ArrayMesh" uid="uid://5jtigcnxqhxl" path="res://assets/models3d/shaft.tres" id="2_g5cqk"]
+[ext_resource type="Script" uid="uid://bev5yinyyb0hn" path="res://scripts/machineScripts/shaft_connections.gd" id="3_g5cqk"]
+[ext_resource type="Material" uid="uid://dqmf30ndmgmyo" path="res://assets/materials/floormarks.tres" id="3_qxltg"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qxltg"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_g5cqk"]
+material = ExtResource("3_qxltg")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_fuv05"]
 
-[node name="Generator" type="Node3D"]
+[node name="Generator" type="Node3D" node_paths=PackedStringArray("meshes")]
 script = ExtResource("1_1ijy3")
 speed = 2.0
+meshes = [NodePath("Shaft"), NodePath("Body")]
 metadata/_custom_type_script = "uid://563d5nfb84m6"
 
 [node name="Shaft" type="MeshInstance3D" parent="."]
@@ -23,11 +29,28 @@ skeleton = NodePath("")
 transform = Transform3D(0.251, 0, 0, 0, -2.1855694e-08, -0.251, 0, 0.5, -1.0971558e-08, 0, 0, -0.5)
 shape = SubResource("CylinderShape3D_qxltg")
 
-[node name="Body" type="CSGBox3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+mesh = SubResource("BoxMesh_g5cqk")
 
 [node name="BodyStatic" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BodyStatic"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 shape = SubResource("BoxShape3D_fuv05")
+
+[node name="RayConnection" type="RayCast3D" parent="."]
+transform = Transform3D(0.51, 0, 0, 0, -2.2292808e-08, -0.51, 0, 0.51, -2.2292808e-08, 0, 0, -0.5)
+script = ExtResource("3_g5cqk")
+
+[node name="Ray1" type="RayCast3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, -0.100034356, 1)
+
+[node name="Ray2" type="RayCast3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, -0.100034356, -1)
+
+[node name="Ray3" type="RayCast3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, -0.100034356, 1)
+
+[node name="Ray4" type="RayCast3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, -0.100034356, -1)

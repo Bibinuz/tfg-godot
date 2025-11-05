@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://oj3blpxqf1bl"]
+[gd_scene load_steps=11 format=3 uid="uid://oj3blpxqf1bl"]
 
 [ext_resource type="PackedScene" uid="uid://bwggrf7sbmkcv" path="res://addons/PlayerCharacter/PlayerCharacterScene.tscn" id="1_oh4cu"]
 [ext_resource type="Material" uid="uid://cmlreoo2qwhp4" path="res://addons/Arts/StructureMaterial.tres" id="2_etmyc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dnf0u2ljad6tc" path="res://scenes/gui.tscn" id="4_w47yd"]
 [ext_resource type="PackedScene" uid="uid://lpqhjxv7crjj" path="res://scenes/shaft.tscn" id="5_p7x60"]
 [ext_resource type="PackedScene" uid="uid://b42n1nedoytet" path="res://scenes/test_motor.tscn" id="6_y5876"]
+[ext_resource type="PackedScene" uid="uid://5ayyguytjdbd" path="res://scenes/bottom_menu.tscn" id="7_vqfbn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fjbi6"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -40,7 +41,7 @@ transform = Transform3D(-0.048326552, 0, -0.9988307, 0, 1, 0, 0.9988316, 0, -0.0
 [node name="Map" type="Node3D" parent="."]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map"]
-transform = Transform3D(0.9981068, 0, 0, 0, 0.9981068, 0, 0, 0, 0.9981068, 21.353891, 0.6899986, -8.5296)
+transform = Transform3D(0.9981068, 0, 0, 0, 0.9981068, 0, 0, 0, 0.9981068, 21.354, 0, -8.53)
 use_collision = true
 collision_mask = 2
 size = Vector3(90, 1, 86)
@@ -58,7 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.86335, 1.1114159, -16.9513
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.856457, 1.1114159, -16.951382)
 
 [node name="Furnace4" parent="." instance=ExtResource("4_p7x60")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.616554, 1.1114159, -16.951382)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8244143, 1.1114159, -16.951382)
 
 [node name="shaft" parent="." instance=ExtResource("5_p7x60")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0)
@@ -71,3 +72,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 1.5)
 
 [node name="TestMotor2" parent="." instance=ExtResource("6_y5876")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.4185567, 2, 1.5)
+
+[node name="BottomMenu" parent="." instance=ExtResource("7_vqfbn")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.691, 1, 0)

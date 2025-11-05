@@ -15,7 +15,6 @@ func _ready() -> void:
 
 
 func interacted() -> void:
-	print("Hello i'm a furnace")
 	gui_active = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	gui.show()

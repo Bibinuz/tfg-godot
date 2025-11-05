@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://5ayyguytjdbd"]
+
+[ext_resource type="Script" uid="uid://cepmdudjnmhhe" path="res://scripts/gui/bottom_menu.gd" id="1_w1h8b"]
+[ext_resource type="Texture2D" uid="uid://updkqhgp7x4l" path="res://assets/img/items/stone_bricks.png" id="2_qm1lh"]
+[ext_resource type="Texture2D" uid="uid://rka5atfsl37a" path="res://assets/img/items/iron_ingot.png" id="3_jjvvo"]
+[ext_resource type="Texture2D" uid="uid://bjpsx3as0pw64" path="res://assets/img/items/stone.png" id="4_pg2oo"]
+[ext_resource type="Texture2D" uid="uid://cq7gaaiespo03" path="res://icon.svg" id="5_ln8my"]
+
+[node name="BottomMenu" type="Control"]
+layout_mode = 3
+anchor_left = 0.2
+anchor_top = 0.9
+anchor_right = 0.8
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_w1h8b")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemList" type="ItemList" parent="PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+auto_width = true
+auto_height = true
+item_count = 9
+max_columns = 9
+same_column_width = true
+fixed_column_width = 120
+icon_mode = 0
+fixed_icon_size = Vector2i(100, 100)
+item_0/icon = ExtResource("2_qm1lh")
+item_1/icon = ExtResource("3_jjvvo")
+item_2/icon = ExtResource("4_pg2oo")
+item_3/icon = ExtResource("5_ln8my")
+item_4/icon = ExtResource("5_ln8my")
+item_5/icon = ExtResource("5_ln8my")
+item_6/icon = ExtResource("5_ln8my")
+item_7/icon = ExtResource("5_ln8my")
+item_8/icon = ExtResource("5_ln8my")
+
+[connection signal="item_selected" from="PanelContainer/ItemList" to="." method="_on_item_list_item_selected"]
