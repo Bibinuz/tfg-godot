@@ -137,7 +137,9 @@ func make_cast_query() -> StaticBody3D:
 	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin,end)
 	query.collide_with_bodies = true
 	var result : Dictionary = space_state.intersect_ray(query) 
-	return result.get("collider")
+	if result.get("collider") is StaticBody3D:
+		return result.get("collider")
+	return null
 
 
 func interact_cast() -> void:

@@ -3,8 +3,13 @@ class_name Building extends Node3D
 @onready var placementYesMaterial = preload("res://assets/materials/placement_yes.tres")
 @onready var placementNoMaterial = preload("res://assets/materials/placement_no.tres")
 
-@onready var raycasts : Array[RayCast3D] = [$Ray1, $Ray2, $Ray3, $Ray4]
+@export_group("Meshes and areas of the building")
 @export var meshes : Array[MeshInstance3D]
+@export var areas : Array[Area3D]
+
+var is_placed : bool = false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -16,8 +21,8 @@ func _process(_delta: float) -> void:
 
 
 func check_placement() -> bool:
-	for ray in raycasts:
-		if !ray.is_colliding():
+	for area in areas:
+		if area.get_overlapping_areas() != []:
 			placement_red()
 			return false
 	placement_green()
@@ -34,7 +39,9 @@ func placement_red() -> void:
 	pass
 
 func placed() -> void:
+	is_placed = true
 	for mesh in meshes:
 		mesh.material_override = null
-	for ray in raycasts:
-		ray.queue_free()
+
+func remove_building() -> void:
+	self.queue_free()

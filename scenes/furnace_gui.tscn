@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://dw4acs4p456vx"]
+
+[ext_resource type="Texture2D" uid="uid://h186pcusqira" path="res://assets/img/items/iron_ore.png" id="1_cb4jb"]
+[ext_resource type="Texture2D" uid="uid://bwhc25fibelsb" path="res://assets/input_prompts/flair_arrow_long.svg" id="2_10mq0"]
+[ext_resource type="Texture2D" uid="uid://rka5atfsl37a" path="res://assets/img/items/iron_ingot.png" id="3_783yc"]
+[ext_resource type="Texture2D" uid="uid://cu4o3wotxmba3" path="res://assets/input_prompts/touch_tap.png" id="4_0m5io"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kcyua"]
+bg_color = Color(0.35531357, 0.35531357, 0.3553135, 0.11764706)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s82ge"]
+bg_color = Color(0.44291073, 0.4429108, 0.4429106, 0.5372549)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[node name="FurnaceGUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kcyua")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s82ge")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Recipe1" type="HBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="TextureRect" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Recipe1"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_cb4jb")
+expand_mode = 1
+
+[node name="Arrow" type="TextureRect" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Recipe1"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_10mq0")
+
+[node name="Output" type="TextureRect" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Recipe1"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("3_783yc")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Recipe1"]
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(0.69223535, 0.23649949, 0.1810796, 1)
+theme_override_icons/icon = ExtResource("4_0m5io")
+icon_alignment = 1

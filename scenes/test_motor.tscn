@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b42n1nedoytet"]
+[gd_scene load_steps=10 format=3 uid="uid://b42n1nedoytet"]
 
 [ext_resource type="Script" uid="uid://563d5nfb84m6" path="res://scripts/machineScripts/generator.gd" id="1_1ijy3"]
 [ext_resource type="ArrayMesh" uid="uid://5jtigcnxqhxl" path="res://assets/models3d/shaft.tres" id="2_g5cqk"]
@@ -12,10 +12,16 @@ material = ExtResource("3_qxltg")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fuv05"]
 
-[node name="Generator" type="Node3D" node_paths=PackedStringArray("meshes")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_qxltg"]
+size = Vector3(0.9, 0.9, 1.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6vl1m"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Generator" type="Node3D" node_paths=PackedStringArray("meshes", "areas")]
 script = ExtResource("1_1ijy3")
-speed = 2.0
 meshes = [NodePath("Shaft"), NodePath("Body")]
+areas = [NodePath("PlacementArea")]
 metadata/_custom_type_script = "uid://563d5nfb84m6"
 
 [node name="Shaft" type="MeshInstance3D" parent="."]
@@ -43,14 +49,17 @@ shape = SubResource("BoxShape3D_fuv05")
 transform = Transform3D(0.51, 0, 0, 0, -2.2292808e-08, -0.51, 0, 0.51, -2.2292808e-08, 0, 0, -0.5)
 script = ExtResource("3_g5cqk")
 
-[node name="Ray1" type="RayCast3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, -0.100034356, 1)
+[node name="PlacementArea" type="Area3D" parent="."]
 
-[node name="Ray2" type="RayCast3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, -0.100034356, -1)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlacementArea"]
+shape = SubResource("BoxShape3D_qxltg")
 
-[node name="Ray3" type="RayCast3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, -0.100034356, 1)
+[node name="ConnectionPorts" type="Node3D" parent="."]
 
-[node name="Ray4" type="RayCast3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, -0.100034356, -1)
+[node name="Port1" type="Area3D" parent="ConnectionPorts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ConnectionPorts/Port1"]
+shape = SubResource("BoxShape3D_6vl1m")
