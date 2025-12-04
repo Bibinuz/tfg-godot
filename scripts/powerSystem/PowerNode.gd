@@ -53,12 +53,20 @@ func _on_area_entered(other_port: Area3D, local_port: PowerNodePort) -> void:
 		#emit_signal("network_changed")
 
 func _on_area_exited(area: Area3D, local_port: PowerNodePort) -> void:
-	var other_node = area.get_owner()
-	if other_node is PowerNode:
-		connections[local_port] = null
-		other_node.connections[area] = null
-		check_speeds()
-		call_deferred("emit_signal", "network_changed")
+	if connections.has(local_port) and connections[local_port] != null:
+		if connections[local_port].port == area:
+			connections[local_port] = null
+			call_deferred("emit_signal", "network_changed")
+
+
+##	var other_node = area.get_owner()
+##	if other_node is PowerNode:
+	##		connections[local_port] = null
+	##		other_node.connections[area] = null
+	##	else:
+		##		connections[local_port] = null
+		##	check_speeds()
+		##	call_deferred("emit_signal", "network_changed")
 
 func get_connections() -> Array[PowerNode]:
 	var node_connections: Array[PowerNode] = []
@@ -77,10 +85,15 @@ func placed() -> void:
 func get_rotation_axis() -> Vector3:
 	return global_transform.basis.y.snappedf(1)
 
+func get_port_rotation_axis(_port: PowerNodePort) -> Vector3:
+	return get_rotation_axis()
+
 func break_part() -> void:
 	if is_broken:
 		return
 	is_broken = true
+	PowerGridManager.unregister_node(self)
+	emit_signal("network_changed")
 	print(name + " Has exploded due to direction conflicts")
 	remove_building()
 
@@ -90,8 +103,8 @@ func check_speeds() -> void:
 		var temp_speed: float = 0.0
 		if  connections[port] and connections[port].node and not connections[port].node.is_queued_for_deletion():
 			var connected_port:PortConnection = connections[port]
-			var my_axis : Vector3 = self.get_rotation_axis()
-			var connection_axis : Vector3 = connected_port.node.get_rotation_axis()
+			var my_axis : Vector3 = self.get_port_rotation_axis(port)
+			var connection_axis : Vector3 = connected_port.node.get_port_rotation_axis(connected_port.port)
 			var vector_to_connected : Vector3= (connected_port.node.global_position - self.global_position).normalized()
 			if vector_to_connected.length_squared() >0.001:
 				vector_to_connected = vector_to_connected.normalized()
@@ -107,14 +120,13 @@ func check_speeds() -> void:
 			else:
 				var interaction_plane : Vector3 = my_axis.cross(connection_axis)
 				var  planar_check : float =interaction_plane.dot(vector_to_connected)
-				if is_zero_approx(planar_check):
+				if true or is_zero_approx(planar_check):
 					var my_tangent: Vector3 = my_axis.cross(vector_to_connected)
 					var other_tangent: Vector3 = vector_to_connected.cross(connection_axis)
 					var alignment: float = my_tangent.dot(other_tangent)
 					input_speed *= signf(alignment)
 				else:
 					input_speed *= signf(planar_check)
-
 
 			temp_speed  = (input_speed*port.direction_fliper)/port.ratio_multipier
 		if  not is_equal_approx(temp_speed, suposed_speed) and not is_zero_approx(suposed_speed) and (not is_zero_approx(temp_speed)):

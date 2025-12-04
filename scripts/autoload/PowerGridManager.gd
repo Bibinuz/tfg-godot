@@ -24,9 +24,8 @@ func register_node(node: PowerNode) -> void:
 func unregister_node(node: PowerNode) -> void:
 	if all_power_nodes.has(node):
 		all_power_nodes.erase(node)
-		if node.is_connected("network_changed", recalculate_grid):
+		if node.is_connected("network_changed", recalculate_all_grids):
 			node.network_changed.disconnect(recalculate_all_grids)
-			recalculate_all_grids()
 
 func recalculate_grid(starting_node: PowerNode) -> Array[PowerNode]:
 	var grid : Array[PowerNode] =  find_whole_grid_bfs(starting_node)
@@ -48,9 +47,8 @@ func recalculate_grid(starting_node: PowerNode) -> Array[PowerNode]:
 func recalculate_all_grids() -> void:
 	var visited: Array[PowerNode] = []
 	for node: PowerNode in  all_power_nodes:
-		if not visited.has(node):
-			visited.append(recalculate_grid(node))
-	visited.clear()
+		if not visited.has(node) and node:
+			visited.append_array(recalculate_grid(node))
 
 func find_whole_grid_bfs(start_node: PowerNode) -> Array[PowerNode]:
 	var visited: Array[PowerNode] = []
