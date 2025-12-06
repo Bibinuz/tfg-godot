@@ -4,7 +4,6 @@ class_name Gear extends PowerNode
 
 func _ready() -> void:
 	super()
-	cost_per_speed = -1
 	pass
 
 func _process(delta: float) -> void:

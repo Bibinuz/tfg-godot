@@ -31,8 +31,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	if is_passive:
-		check_speeds()
 	pass
 
 func _enter_tree() -> void:
@@ -48,30 +46,18 @@ func _on_area_entered(other_port: Area3D, local_port: PowerNodePort) -> void:
 	if local_port.can_connect_to(other_port):
 		connections[local_port] = PortConnection.new(other_node, other_port)
 		other_node.connections[other_port] = PortConnection.new(self,  local_port)
-		check_speeds()
-		call_deferred("emit_signal", "network_changed")
-		#emit_signal("network_changed")
+		call_deferred("emit_signal", "network_changed", self)
 
 func _on_area_exited(area: Area3D, local_port: PowerNodePort) -> void:
 	if connections.has(local_port) and connections[local_port] != null:
 		if connections[local_port].port == area:
 			connections[local_port] = null
-			call_deferred("emit_signal", "network_changed")
-
-
-##	var other_node = area.get_owner()
-##	if other_node is PowerNode:
-	##		connections[local_port] = null
-	##		other_node.connections[area] = null
-	##	else:
-		##		connections[local_port] = null
-		##	check_speeds()
-		##	call_deferred("emit_signal", "network_changed")
+			call_deferred("emit_signal", "network_changed", self)
 
 func get_connections() -> Array[PowerNode]:
 	var node_connections: Array[PowerNode] = []
 	for port: PowerNodePort in connections:
-		if connections[port]:
+		if connections[port] and connections[port].node and not connections[port].node.is_broken:
 			node_connections.append(connections[port].node)
 	return node_connections
 
@@ -93,7 +79,7 @@ func break_part() -> void:
 		return
 	is_broken = true
 	PowerGridManager.unregister_node(self)
-	emit_signal("network_changed")
+	emit_signal("network_changed", self)
 	print(name + " Has exploded due to direction conflicts")
 	remove_building()
 
@@ -105,28 +91,22 @@ func check_speeds() -> void:
 			var connected_port:PortConnection = connections[port]
 			var my_axis : Vector3 = self.get_port_rotation_axis(port)
 			var connection_axis : Vector3 = connected_port.node.get_port_rotation_axis(connected_port.port)
-			var vector_to_connected : Vector3= (connected_port.node.global_position - self.global_position).normalized()
+			var vector_to_connected : Vector3= (connected_port.node.global_position - self.global_position)
 			if vector_to_connected.length_squared() >0.001:
 				vector_to_connected = vector_to_connected.normalized()
 			else:
 				vector_to_connected = Vector3.ZERO
 
-			var dot : float = my_axis.dot(connection_axis)
-
 			var input_speed: float = connected_port.node.speed * connected_port.port.ratio_multipier * connected_port.port.direction_fliper
+			var dot : float = my_axis.dot(connection_axis)
 
 			if abs(dot) > 0.9:
 				input_speed *= signf(dot)
 			else:
-				var interaction_plane : Vector3 = my_axis.cross(connection_axis)
-				var  planar_check : float =interaction_plane.dot(vector_to_connected)
-				if true or is_zero_approx(planar_check):
-					var my_tangent: Vector3 = my_axis.cross(vector_to_connected)
-					var other_tangent: Vector3 = vector_to_connected.cross(connection_axis)
-					var alignment: float = my_tangent.dot(other_tangent)
-					input_speed *= signf(alignment)
-				else:
-					input_speed *= signf(planar_check)
+				var my_tangent: Vector3 = my_axis.cross(vector_to_connected)
+				var other_tangent: Vector3 = vector_to_connected.cross(connection_axis)
+				var alignment: float = my_tangent.dot(other_tangent)
+				input_speed *= signf(alignment)
 
 			temp_speed  = (input_speed*port.direction_fliper)/port.ratio_multipier
 		if  not is_equal_approx(temp_speed, suposed_speed) and not is_zero_approx(suposed_speed) and (not is_zero_approx(temp_speed)):
@@ -135,3 +115,50 @@ func check_speeds() -> void:
 		if is_zero_approx(suposed_speed) and not is_zero_approx(temp_speed):
 			suposed_speed = temp_speed
 	self.speed=suposed_speed
+
+
+func calculate_speed(local_port: PowerNodePort, connected_node: PowerNode, connected_port: PowerNodePort) -> float:
+		var my_axis: Vector3 = self.get_port_rotation_axis(local_port)
+		var connection_axis: Vector3 = connected_node.get_port_rotation_axis(connected_port)
+		var vector_to_connected: Vector3 = (connected_node.global_position - self.global_position)
+		if vector_to_connected.length_squared() > 0.001:
+			vector_to_connected = vector_to_connected.normalized()
+		else:
+			vector_to_connected = Vector3.ZERO
+
+		var input_speed = connected_node.speed / connected_port.ratio_multipier * connected_port.direction_fliper
+		if is_zero_approx(input_speed):
+			#print(connected_node.name)
+			#print(connected_node.speed, " ", connected_port.ratio_multipier, " ",connected_port.direction_fliper)
+			pass
+		var dot: float = my_axis.dot(connection_axis)
+
+		if abs(dot) > 0.9:
+			if local_port.type == PortType.COG_BIG or local_port.type == PortType.COG_SMALL:
+				input_speed *= -signf(dot)
+			else:
+				input_speed *= signf(dot)
+		else:
+			var my_tangent: Vector3 = my_axis.cross(vector_to_connected)
+			var other_tangent: Vector3 = vector_to_connected.cross(connection_axis)
+			var alignment: float = my_tangent.dot(other_tangent)
+			input_speed *= signf(alignment)
+
+		var resulting_speed = (input_speed * local_port.direction_fliper) * local_port.ratio_multipier
+		return resulting_speed
+
+
+
+func interacted() -> void:
+	print(self.name, ": ", self.speed)
+	pass
+	#for port in connections:
+		#print(port.name, ": ", get_port_rotation_axis(port))
+
+func remove_building() -> void:
+	var port_connections = get_connections()
+	self.is_broken = true
+	for connection in port_connections:
+		call_deferred("emit_signal", "network_changed", connection)
+
+	self.queue_free()

@@ -19,60 +19,104 @@ func register_node(node: PowerNode) -> void:
 	if not all_power_nodes.has(node):
 		all_power_nodes.append(node)
 		last_built_node = node
-		node.network_changed.connect(recalculate_all_grids)
+		node.network_changed.connect(on_network_change)
 
 func unregister_node(node: PowerNode) -> void:
 	if all_power_nodes.has(node):
 		all_power_nodes.erase(node)
-		if node.is_connected("network_changed", recalculate_all_grids):
-			node.network_changed.disconnect(recalculate_all_grids)
+		if node.is_connected("network_changed", on_network_change):
+			node.network_changed.disconnect(on_network_change)
 
-func recalculate_grid(starting_node: PowerNode) -> Array[PowerNode]:
-	var grid : Array[PowerNode] =  find_whole_grid_bfs(starting_node)
+func recalculate_grid_stress(grid: Array[PowerNode]) -> void:
 	var power: float = 0.0
 	for node : PowerNode in grid:
 		if node is Generator:
-			power += node.generate_per_speed*node.speed
+			power += node.generate_per_speed*abs(node.speed)
 		else:
-			power -= node.cost_per_speed*node.speed
+			power -= node.cost_per_speed*abs(node.speed)
 	if power < 0.0:
 		for node : PowerNode in grid:
 			node.is_overstressed = true
 	if power >= 0.0:
 		for node: PowerNode in grid:
 			node.is_overstressed = false
-	last_power_calculation = power
-	return grid
+
+
 
 func recalculate_all_grids() -> void:
 	var visited: Array[PowerNode] = []
 	for node: PowerNode in  all_power_nodes:
 		if not visited.has(node) and node:
-			visited.append_array(recalculate_grid(node))
+			var grid: Array[PowerNode] = find_whole_grid_bfs(node)
+			recalculate_grid_stress(grid)
+			visited.append_array(grid)
+
+func on_network_change(start_node: PowerNode) -> void:
+	var grid : Array[PowerNode] = find_whole_grid_bfs(start_node)
+	var generators: Array[Generator] = []
+	for node: PowerNode in grid:
+		node.is_overstressed = false
+		if node is Generator:
+			generators.append(node)
+		else:
+			node.speed = 0.0
+	if generators.is_empty(): return
+
+	solve_speeds(generators)
+	recalculate_grid_stress(grid)
+
+
+
+func solve_speeds(generators: Array[Generator]) -> void:
+	var node_speeds: Dictionary = {}
+	var queue: Array[PowerNode] = []
+	var visited: Array[PowerNode] = []
+
+	for generator: Generator in generators:
+		node_speeds[generator] = generator.speed
+		queue.append(generator)
+
+
+
+	while not queue.is_empty():
+		var current_node : PowerNode= queue.pop_front()
+		if current_node in visited:
+			continue
+		visited.append(current_node)
+		current_node.speed = node_speeds[current_node]
+		for local_port: PowerNodePort in current_node.connections:
+			var connection: PortConnection = current_node.connections[local_port]
+			if not connection or not connection.node or connection.node.is_broken: continue
+
+			var proposed_connection_speed = connection.node.calculate_speed(local_port, current_node, connection.port)
+			if node_speeds.has(connection.node) and not is_equal_approx(proposed_connection_speed, node_speeds[connection.node]):
+				if is_zero_approx(proposed_connection_speed):
+					proposed_connection_speed = node_speeds[connection.node]
+				elif is_zero_approx(node_speeds[connection.node]):
+					node_speeds[connection.node] = proposed_connection_speed
+				else:
+					print("Speed conflict, breaking part: ", connection.node)
+					print(connection.node.name, " " ,node_speeds[connection.node], ":", current_node.name, " ", proposed_connection_speed)
+					break_priority(connection.node, current_node)
+					return
+			node_speeds[connection.node] = proposed_connection_speed
+			queue.append(connection.node)
+
+
+
+
 
 func find_whole_grid_bfs(start_node: PowerNode) -> Array[PowerNode]:
 	var visited: Array[PowerNode] = []
 	var queue: Array[PowerNode] = [start_node]
 	visited.append(start_node)
 	while not queue.is_empty():
-		var current_node = queue.pop_front()
+		var current_node:PowerNode = queue.pop_front()
 		for connection in current_node.get_connections():
-					if connection not in visited:
+					if connection not in visited and not connection.is_broken:
 							visited.append(connection)
 							queue.append(connection)
 	return visited
-
-			##func find_whole_grid_dfs(start_node: PowerNode) -> Array[PowerNode]:
-				##	var visited: Array[PowerNode] = []
-				##	var queue: Array[PowerNode] = [start_node]
-				##	visited.append(start_node)
-				##	while not queue.is_empty():
-					##		var current_node = queue.pop_back()
-					##		for connection in current_node.get_connections():
-						##			if connection not in visited:
-							##				visited.append(connection)
-							##				queue.append(connection)
-							##	return visited
 
 func break_priority(node1 : PowerNode, node2 : PowerNode) -> void:
 	# First case:

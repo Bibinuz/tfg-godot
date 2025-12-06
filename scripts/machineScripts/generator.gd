@@ -20,7 +20,9 @@ func _process(delta: float) -> void:
 	#if not is_overstressed and is_running:
 
 func interacted() -> void:
-	print(PowerGridManager.last_power_calculation)
+	super()
+	print(PowerGridManager.find_whole_grid_bfs(self))
+	return
 
 
 func placed() -> void:

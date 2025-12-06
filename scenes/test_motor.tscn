@@ -69,6 +69,17 @@ metadata/_custom_type_script = "uid://dbuhw48ma2lnv"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ConnectionPorts/Port1"]
 shape = SubResource("BoxShape3D_6vl1m")
 
+[node name="Port2" type="Area3D" parent="ConnectionPorts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_g5cqk")
+allow_ports = Array[int]([0])
+metadata/_custom_type_script = "uid://dbuhw48ma2lnv"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ConnectionPorts/Port2"]
+shape = SubResource("BoxShape3D_6vl1m")
+
 [node name="PlacementArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.5, 0)
 
