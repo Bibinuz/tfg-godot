@@ -18,7 +18,6 @@ func _physics_process(_delta: float) -> void:
 func register_node(node: PowerNode) -> void:
 	if not all_power_nodes.has(node):
 		all_power_nodes.append(node)
-		last_built_node = node
 		node.network_changed.connect(on_network_change)
 
 func unregister_node(node: PowerNode) -> void:
@@ -26,6 +25,7 @@ func unregister_node(node: PowerNode) -> void:
 		all_power_nodes.erase(node)
 		if node.is_connected("network_changed", on_network_change):
 			node.network_changed.disconnect(on_network_change)
+			recalculate_all_grids()
 
 func recalculate_grid_stress(grid: Array[PowerNode]) -> void:
 	var power: float = 0.0
@@ -48,11 +48,12 @@ func recalculate_all_grids() -> void:
 	for node: PowerNode in  all_power_nodes:
 		if not visited.has(node) and node:
 			var grid: Array[PowerNode] = find_whole_grid_bfs(node)
-			recalculate_grid_stress(grid)
+			on_network_change(node, grid)
 			visited.append_array(grid)
 
-func on_network_change(start_node: PowerNode) -> void:
-	var grid : Array[PowerNode] = find_whole_grid_bfs(start_node)
+func on_network_change(start_node: PowerNode, grid:Array[PowerNode] = []) -> void:
+	if grid == []:
+		grid = find_whole_grid_bfs(start_node)
 	var generators: Array[Generator] = []
 	for node: PowerNode in grid:
 		node.is_overstressed = false
@@ -91,7 +92,10 @@ func solve_speeds(generators: Array[Generator]) -> void:
 					elif is_zero_approx(node_speeds[connection.node]):
 						node_speeds[connection.node] = proposed_connection_speed
 					else:
-						all_power_nodes.pop_back().break_part()
+						#print(last_built_node.name)
+						#all_power_nodes.erase(last_built_node)
+						last_built_node.break_part()
+						#last_built_node = all_power_nodes[-1]
 						#break_priority(connection.node, current_node)
 						return
 				node_speeds[connection.node] = proposed_connection_speed

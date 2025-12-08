@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://7rlaqoenwbax"]
+[gd_scene load_steps=13 format=4 uid="uid://7rlaqoenwbax"]
 
 [ext_resource type="Script" uid="uid://dbs3rlw2bpk23" path="res://scripts/powerSystem/cog.gd" id="2_3b40t"]
 [ext_resource type="Script" uid="uid://cw0kcf37813c4" path="res://scripts/interactionComponent/interactioncomponent.gd" id="2_uaayq"]
@@ -83,8 +83,13 @@ radius = 0.2
 [sub_resource type="BoxShape3D" id="BoxShape3D_i8oap"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hqeu3"]
-size = Vector3(0.9, 0.9, 0.9)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uaayq"]
+height = 0.9
+radius = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3b40t"]
+height = 0.2
+radius = 0.8
 
 [node name="cog_big" type="Node3D" node_paths=PackedStringArray("meshes", "areas", "collisions")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
@@ -107,9 +112,8 @@ shape = SubResource("CylinderShape3D_i8oap")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("CylinderShape3D_xgo0e")
 
-[node name="InteractionComponent" type="Node" parent="StaticBody3D" node_paths=PackedStringArray("meshes")]
+[node name="InteractionComponent" type="Node" parent="StaticBody3D"]
 script = ExtResource("2_uaayq")
-meshes = [NodePath("../../Gear")]
 override_icon = true
 metadata/_custom_type_script = "uid://cw0kcf37813c4"
 
@@ -244,4 +248,7 @@ shape = SubResource("BoxShape3D_i8oap")
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("BoxShape3D_hqeu3")
+shape = SubResource("CylinderShape3D_uaayq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_3b40t")

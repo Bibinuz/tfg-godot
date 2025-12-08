@@ -260,7 +260,7 @@ areas = [NodePath("PlacementArea")]
 collisions = [NodePath("StaticBody3D")]
 
 [node name="Port1" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 1.509958e-07, 0, -1.509958e-07, -1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_qt8hb")
 skeleton = NodePath("")
 
@@ -274,22 +274,22 @@ mesh = SubResource("ArrayMesh_5yyc0")
 skeleton = NodePath("")
 
 [node name="Cube_001" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.15, 0, 0, 0, 0, -0.15, 0, 0.01, 0, 0, 0, -0.5)
+transform = Transform3D(0.15, 0, 0, 0, -4.3711387e-10, -0.14999999, 0, 0.01, -6.556708e-09, 0, 0, 0.5)
 mesh = SubResource("ArrayMesh_006yo")
 skeleton = NodePath("")
 
 [node name="Cube_002" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.15, 0, 0, 0, 0, -0.15, 0, 0.01, 0, 0, 0, 0.5)
+transform = Transform3D(0.15, 0, 0, 0, -4.3711387e-10, -0.15, 0, 0.01, -6.5567085e-09, 0, 0, -0.5)
 mesh = SubResource("ArrayMesh_uit8h")
 skeleton = NodePath("")
 
 [node name="Cube_003" type="MeshInstance3D" parent="."]
-transform = Transform3D(0, 0.01, 0, 0, 0, -0.15, -0.15, 0, 0, 0.5, 0, 0)
+transform = Transform3D(-6.5567085e-09, 0.01, -6.5567085e-09, 0, -4.3711387e-10, -0.15, -0.15, -4.3711387e-10, 2.8660284e-16, 0.5, 0, 0)
 mesh = SubResource("ArrayMesh_6e77o")
 skeleton = NodePath("")
 
 [node name="Cube_004" type="MeshInstance3D" parent="."]
-transform = Transform3D(0, 0.01, 0, 0, 0, -0.15, -0.15, 0, 0, -0.5, 0, 0)
+transform = Transform3D(1.9670125e-08, 0.01, -5.7320567e-16, -6.5567085e-09, 1.9106855e-17, -0.15, -0.15, 1.3113416e-09, 6.5567085e-09, -0.5, 0, 0)
 mesh = SubResource("ArrayMesh_41yue")
 skeleton = NodePath("")
 
@@ -298,9 +298,8 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_awura")
 
-[node name="InteractionComponent" type="Node" parent="StaticBody3D" node_paths=PackedStringArray("meshes")]
+[node name="InteractionComponent" type="Node" parent="StaticBody3D"]
 script = ExtResource("2_iryne")
-meshes = [NodePath("../../Port1"), NodePath("../../Port2"), NodePath("../../Cube"), NodePath("../../Cube_001"), NodePath("../../Cube_002"), NodePath("../../Cube_003"), NodePath("../../Cube_004")]
 override_icon = true
 metadata/_custom_type_script = "uid://cw0kcf37813c4"
 

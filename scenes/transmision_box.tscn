@@ -197,7 +197,7 @@ areas = [NodePath("PlacementArea")]
 collisions = [NodePath("StaticBody3D")]
 
 [node name="Port1" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 1.509958e-07, 0, -1.509958e-07, -1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_jwi6e")
 skeleton = NodePath("")
 
@@ -206,12 +206,12 @@ mesh = SubResource("ArrayMesh_lfhej")
 skeleton = NodePath("")
 
 [node name="Port3" type="MeshInstance3D" parent="."]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 0, 0, 0)
 mesh = SubResource("ArrayMesh_0q7di")
 skeleton = NodePath("")
 
 [node name="Port4" type="MeshInstance3D" parent="."]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0.7, 0, 0)
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0, 0, 0)
 mesh = SubResource("ArrayMesh_bqae1")
 skeleton = NodePath("")
 
@@ -221,13 +221,13 @@ mesh = SubResource("ArrayMesh_4prnc")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_awura")
 
-[node name="InteractionComponent" type="Node" parent="StaticBody3D" node_paths=PackedStringArray("meshes")]
+[node name="InteractionComponent" type="Node" parent="StaticBody3D"]
 script = ExtResource("2_73rmk")
-meshes = [NodePath("../../Port1"), NodePath("../../Port2"), NodePath("../../Port3"), NodePath("../../Port4"), NodePath("../../Cube")]
 override_icon = true
 metadata/_custom_type_script = "uid://cw0kcf37813c4"
 

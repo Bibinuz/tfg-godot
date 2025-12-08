@@ -10,6 +10,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 	if not is_overstressed:
+		# Man what the fuck is this
 		shaftMesh.rotate(Vector3(0,1,0), speed*delta)
 	pass
 

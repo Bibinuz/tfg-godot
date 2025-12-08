@@ -3,6 +3,8 @@ class_name Building extends Node3D
 @onready var placementYesMaterial = preload("res://assets/materials/placement_yes.tres")
 @onready var placementNoMaterial = preload("res://assets/materials/placement_no.tres")
 
+@export var debris_scene: PackedScene = preload("res://scenes/poof.tscn")
+
 @export_group("Meshes, areas and collistions of the building")
 @export var meshes : Array[MeshInstance3D]
 @export var areas : Array[Area3D]
@@ -47,8 +49,15 @@ func placed() -> void:
 		mesh.material_override = null
 		toggle_collisions(true)
 
-func remove_building() -> void:
+func break_part() -> void:
+	if debris_scene:
+		spawn_debris()
 	self.queue_free()
+
+func spawn_debris():
+	var debris: GPUParticles3D = debris_scene.instantiate()
+	get_tree().current_scene.add_child(debris)
+	debris.global_position = global_position
 
 func toggle_collisions(enabled: bool) -> void:
 	for body:StaticBody3D in collisions:

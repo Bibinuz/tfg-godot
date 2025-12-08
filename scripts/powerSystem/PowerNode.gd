@@ -33,12 +33,6 @@ func _process(delta: float) -> void:
 	super(delta)
 	pass
 
-func _enter_tree() -> void:
-	PowerGridManager.register_node(self)
-
-func _exit_tree() -> void:
-	PowerGridManager.unregister_node(self)
-
 func _on_area_entered(other_port: Area3D, local_port: PowerNodePort) -> void:
 	if not other_port is PowerNodePort:
 		return
@@ -72,6 +66,9 @@ func get_port_rotation_axis(_port: PowerNodePort) -> Vector3:
 
 func placed() -> void:
 	super()
+	PowerGridManager.register_node(self)
+
+	PowerGridManager.last_built_node = self
 	for port in $ConnectionPorts.get_children():
 		if port is Area3D:
 			port.monitoring = true
@@ -81,10 +78,12 @@ func break_part() -> void:
 	if is_broken:
 		return
 	is_broken = true
-	PowerGridManager.unregister_node(self)
-	emit_signal("network_changed", self)
 	print(name + " Has exploded due to direction conflicts")
-	remove_building()
+	PowerGridManager.unregister_node(self)
+	#var port_connections = get_connections()
+	#for connection in port_connections:
+		#call_deferred("emit_signal", "network_changed", connection)
+	super()
 
 func calculate_speed(local_port: PowerNodePort, connected_node: PowerNode, connected_port: PowerNodePort) -> float:
 	var my_axis: Vector3 = get_port_rotation_axis(local_port)
@@ -94,7 +93,7 @@ func calculate_speed(local_port: PowerNodePort, connected_node: PowerNode, conne
 		vector_to_connected = vector_to_connected.normalized()
 	else:
 		vector_to_connected = Vector3.ZERO
-	var input_speed : float= connected_node.speed / connected_port.ratio_multipier * connected_port.direction_fliper
+	var input_speed : float= connected_node.speed* connected_port.ratio_multipier * connected_port.direction_fliper
 	var dot: float = my_axis.dot(connection_axis)
 	if abs(dot) > 0.9:
 		if local_port.type == PortType.COG_BIG or local_port.type == PortType.COG_SMALL:
@@ -112,21 +111,11 @@ func calculate_speed(local_port: PowerNodePort, connected_node: PowerNode, conne
 		else:
 			print("How do we get here")
 			input_speed *= signf(planar_check)
-	var resulting_speed = (input_speed * local_port.direction_fliper) * local_port.ratio_multipier
+	var resulting_speed = (input_speed * local_port.direction_fliper) / local_port.ratio_multipier
 	return resulting_speed
-
-
 
 func interacted() -> void:
 	print(self.name, ": ", self.connections)
 	for port in connections:
 		for connection in connections[port]:
 			calculate_speed(port, connection.node, connection.port)
-
-func remove_building() -> void:
-	var port_connections = get_connections()
-	self.is_broken = true
-	for connection in port_connections:
-		call_deferred("emit_signal", "network_changed", connection)
-
-	self.queue_free()

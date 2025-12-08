@@ -11,11 +11,13 @@ class_name BottomMenu extends Control
 @onready var hotbar : ItemList = $PanelContainer/ItemList
 
 var isSelected : bool = false
+var selected: int = 0
 var isPlacing : bool = false
 var camera : Camera3D
 var instance : Building
-var placingRange : int = 1000
+var placingRange : int = 10
 var canPlace : bool = false
+var lastRotation: Vector3 = Vector3(PI/2, 0, 0)
 
 func _ready() -> void:
 	camera = get_viewport().get_camera_3d()
@@ -73,40 +75,56 @@ func _input(event: InputEvent) -> void:
 		item_selected(8)
 
 	if isPlacing:
-		if event.is_action_pressed("leftClick") and canPlace:
+		if event.is_action_pressed("leftClick") and canPlace and instance:
 			instance.placed()
-			hotbar.deselect_all()
 			canPlace = false
 			isPlacing = false
+			instance = null
+			item_selected(selected)
+
+			instance.global_rotation = lastRotation
+		if event.is_action_pressed("rightClick")  and isPlacing and instance:
+			instance.queue_free()
+			canPlace = false
+			isPlacing = false
+			hotbar.deselect_all()
+			lastRotation = Vector3(PI/2,0,0)
 		if event.is_action_pressed("rotateBuildingX"):
-			instance.global_rotation_degrees.x += 90
-			instance.global_rotation_degrees.snappedf(1)
+			instance.global_rotation.x += PI/2
+			lastRotation = instance.global_rotation
 		if event.is_action_pressed("rotateBuildingY"):
-			instance.global_rotation_degrees.y += 90
-			instance.global_rotation_degrees.snappedf(1)
+			instance.global_rotation.y += PI/2
+			lastRotation = instance.global_rotation
 		if event.is_action_pressed("rotateBuildingZ"):
-			instance.global_rotation_degrees.z += 90
-			instance.global_rotation_degrees.snappedf(1)
+			instance.global_rotation.z += PI/2
+			lastRotation = instance.global_rotation
 
 
 func item_selected(index: int) -> void:
-	if isPlacing:
+	if isPlacing and instance:
 		instance.queue_free()
 
 	if index == 0:
 		instance = furnace.instantiate()
+		selected = 0
 	elif index == 1:
 		instance = shaft.instantiate()
+		selected = 1
 	elif index == 2:
 		instance = testMotor.instantiate()
+		selected = 2
 	elif index ==  3:
 		instance = cogSmall.instantiate()
+		selected = 3
 	elif index == 4:
 		instance = cogBig.instantiate()
+		selected = 4
 	elif index == 5:
 		instance = transmisionBox.instantiate()
+		selected = 5
 	elif index  == 6:
 		instance = multiplier.instantiate()
+		selected = 6
 	else:
 		isPlacing = false
 		return

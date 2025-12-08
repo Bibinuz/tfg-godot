@@ -32,9 +32,8 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_k577w")
 
-[node name="InteractionComponent" type="Node" parent="StaticBody3D" node_paths=PackedStringArray("meshes")]
+[node name="InteractionComponent" type="Node" parent="StaticBody3D"]
 script = ExtResource("3_luyks")
-meshes = [NodePath("../../shaftMesh")]
 override_icon = true
 metadata/_custom_type_script = "uid://cw0kcf37813c4"
 
