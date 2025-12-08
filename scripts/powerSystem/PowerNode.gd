@@ -80,9 +80,6 @@ func break_part() -> void:
 	is_broken = true
 	print(name + " Has exploded due to direction conflicts")
 	PowerGridManager.unregister_node(self)
-	#var port_connections = get_connections()
-	#for connection in port_connections:
-		#call_deferred("emit_signal", "network_changed", connection)
 	super()
 
 func calculate_speed(local_port: PowerNodePort, connected_node: PowerNode, connected_port: PowerNodePort) -> float:
