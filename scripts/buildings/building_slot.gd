@@ -20,7 +20,6 @@ func update_visuals() -> void:
 		icon_rect.texture = null
 
 func _get_drag_data(_position: Vector2) -> BuildingData:
-	print("Dragging data")
 	if not current_building: return null
 	var preview: TextureRect = TextureRect.new()
 	preview.texture = current_building.icon
@@ -30,8 +29,6 @@ func _get_drag_data(_position: Vector2) -> BuildingData:
 	return current_building
 
 func _can_drop_data(_position: Vector2, data: Variant) -> bool:
-	var can_drop: bool = data is BuildingData and "scene" in data and not is_read_only
-	print(can_drop)
 	return data is BuildingData and "scene" in data and not is_read_only
 
 func _drop_data(_position: Vector2, data: Variant) -> void:

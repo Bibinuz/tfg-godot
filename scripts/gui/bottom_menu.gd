@@ -16,6 +16,7 @@ var last_rotation: Vector3 = Vector3(PI/2, 0, 0)
 
 func _ready() -> void:
 	camera = get_viewport().get_camera_3d()
+	GlobalScript.bottom_menu = self
 	pass # Replace with function body.
 
 func _process(_delta: float) -> void:
@@ -72,15 +73,7 @@ func _input(event: InputEvent) -> void:
 
 	if isPlacing:
 		if event.is_action_pressed("leftClick") and canPlace and instance:
-			instance.placed()
-			canPlace = false
-			var current_data: BuildingData = get_data_from_slot(selected_index)
-			instance = null
-			if current_data:
-				instantiate_building(current_data)
-				instance.global_rotation = last_rotation
-			else:
-				isPlacing = false
+			place()
 		if (event.is_action_pressed("rightClick") or event.is_action_pressed("exit")) and isPlacing and instance:
 			cancel_placement()
 		if event.is_action_pressed("rotateBuildingX"):
@@ -93,6 +86,16 @@ func _input(event: InputEvent) -> void:
 			instance.global_rotation.z += PI/2
 			last_rotation = instance.global_rotation
 
+func place() -> void:
+	instance.placed()
+	canPlace = false
+	var current_data: BuildingData = get_data_from_slot(selected_index)
+	instance = null
+	if current_data:
+		instantiate_building(current_data)
+		instance.global_rotation = last_rotation
+	else:
+		isPlacing = false
 
 func select_hotbar_slot(index: int) -> void:
 	selected_index = index

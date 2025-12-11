@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://brautgyuep0ha"]
+
+[ext_resource type="Texture2D" uid="uid://bwhc25fibelsb" path="res://assets/input_prompts/flair_arrow_long.svg" id="1_qwde1"]
+[ext_resource type="PackedScene" uid="uid://dh3x05jge21qi" path="res://scenes/belt.tscn" id="2_amwtf"]
+[ext_resource type="Script" uid="uid://c4xyga3k1meut" path="res://scripts/buildings/building_data.gd" id="3_kexpa"]
+
+[resource]
+script = ExtResource("3_kexpa")
+display_name = "Belt"
+category = 2
+icon = ExtResource("1_qwde1")
+scene = ExtResource("2_amwtf")
+metadata/_custom_type_script = "uid://c4xyga3k1meut"

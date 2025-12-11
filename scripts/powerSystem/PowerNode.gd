@@ -6,7 +6,7 @@ enum PortType{
 	COG_BIG
 }
 
-
+@warning_ignore("unused_signal")
 signal network_changed
 
 @export var cost_per_speed : int = 0

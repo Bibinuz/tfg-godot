@@ -14,16 +14,12 @@ class_name Building extends Node3D
 var is_placed : bool = false
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if not is_placed:
 		toggle_collisions(false)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
-
 
 func check_placement() -> bool:
 	for area in areas:

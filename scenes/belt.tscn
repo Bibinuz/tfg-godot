@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dh3x05jge21qi"]
+
+[ext_resource type="Script" uid="uid://cfdannkv1b6f6" path="res://scripts/powerSystem/belt.gd" id="1_80u0l"]
+[ext_resource type="Script" uid="uid://cvrfu60s8it81" path="res://scripts/powerSystem/beltTool.gd" id="2_ggcs6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_80u0l"]
+size = Vector3(1, 0.5, 0.9)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_80u0l"]
+data = PackedVector3Array(-0.5, 0.099999994, 0.45, 0.5, 0.099999994, 0.45, -0.5, -0.099999994, 0.45, 0.5, 0.099999994, 0.45, 0.5, -0.099999994, 0.45, -0.5, -0.099999994, 0.45, 0.5, 0.099999994, -0.45, -0.5, 0.099999994, -0.45, 0.5, -0.099999994, -0.45, -0.5, 0.099999994, -0.45, -0.5, -0.099999994, -0.45, 0.5, -0.099999994, -0.45, 0.5, 0.099999994, 0.45, 0.5, 0.099999994, -0.45, 0.5, -0.099999994, 0.45, 0.5, 0.099999994, -0.45, 0.5, -0.099999994, -0.45, 0.5, -0.099999994, 0.45, -0.5, 0.099999994, -0.45, -0.5, 0.099999994, 0.45, -0.5, -0.099999994, -0.45, -0.5, 0.099999994, 0.45, -0.5, -0.099999994, 0.45, -0.5, -0.099999994, -0.45, 0.5, 0.099999994, 0.45, -0.5, 0.099999994, 0.45, 0.5, 0.099999994, -0.45, -0.5, 0.099999994, 0.45, -0.5, 0.099999994, -0.45, 0.5, 0.099999994, -0.45, -0.5, -0.099999994, 0.45, 0.5, -0.099999994, 0.45, -0.5, -0.099999994, -0.45, 0.5, -0.099999994, 0.45, 0.5, -0.099999994, -0.45, -0.5, -0.099999994, -0.45)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ggcs6"]
+size = Vector3(0.9, 0.2, 0.8)
+
+[node name="Belt" type="Node3D" node_paths=PackedStringArray("meshes", "areas", "collisions")]
+script = ExtResource("1_80u0l")
+meshes = [NodePath("MeshInstance3D")]
+areas = [NodePath("Area3D")]
+collisions = [NodePath("MeshInstance3D/StaticBody3D")]
+
+[node name="BeltTool" type="Node" parent="."]
+script = ExtResource("2_ggcs6")
+metadata/_custom_type_script = "uid://cvrfu60s8it81"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_80u0l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_80u0l")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_ggcs6")

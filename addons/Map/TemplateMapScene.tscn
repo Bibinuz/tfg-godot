@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://oj3blpxqf1bl"]
+[gd_scene load_steps=9 format=3 uid="uid://oj3blpxqf1bl"]
 
 [ext_resource type="PackedScene" uid="uid://bwggrf7sbmkcv" path="res://addons/PlayerCharacter/PlayerCharacterScene.tscn" id="1_oh4cu"]
-[ext_resource type="Material" uid="uid://cmlreoo2qwhp4" path="res://addons/Arts/StructureMaterial.tres" id="2_etmyc"]
 [ext_resource type="PackedScene" uid="uid://dnf0u2ljad6tc" path="res://scenes/gui.tscn" id="4_w47yd"]
 [ext_resource type="PackedScene" uid="uid://5ayyguytjdbd" path="res://scenes/bottom_menu.tscn" id="7_vqfbn"]
 
@@ -17,6 +16,12 @@ background_mode = 2
 sky = SubResource("Sky_43bpn")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_da4oa"]
+albedo_color = Color(0.6353835, 0.9999998, 0.63693315, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_da4oa"]
+size = Vector3(100, 1, 100)
 
 [node name="World" type="Node3D"]
 
@@ -38,8 +43,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999905, 0, 2, 0)
 transform = Transform3D(0.9981068, 0, 0, 0, 0.9981068, 0, 0, 0, 0.9981068, 0, 0, 0)
 use_collision = true
 collision_mask = 2
-size = Vector3(90, 1, 86)
-material = ExtResource("2_etmyc")
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_da4oa")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Map"]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Map/StaticBody3D"]
+transform = Transform3D(0.9981068, 0, 0, 0, 0.9981068, 0, 0, 0, 0.9981068, 0, 0, 0)
+shape = SubResource("BoxShape3D_da4oa")
 
 [node name="GUI" parent="." instance=ExtResource("4_w47yd")]
 

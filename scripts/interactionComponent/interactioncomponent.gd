@@ -34,6 +34,7 @@ func _input(event: InputEvent) -> void:
 
 func in_range() -> void:
 	focused = true
+	GlobalScript.focused_element = main_object
 	for mesh: MeshInstance3D in meshes:
 		mesh.material_overlay = outline_material
 	MessageBus.interaction_focused.emit(context, new_icon, override_icon)
@@ -41,6 +42,8 @@ func in_range() -> void:
 
 func not_in_range() -> void:
 	focused=false
+	if GlobalScript.focused_element == main_object:
+		GlobalScript.focused_element = null
 	for mesh: MeshInstance3D in meshes:
 		mesh.material_overlay = null
 	MessageBus.interaction_unfocused.emit()
