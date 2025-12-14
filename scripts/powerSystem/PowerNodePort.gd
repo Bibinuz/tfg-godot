@@ -6,8 +6,8 @@ enum PortType{
 	COG_BIG
 }
 
-@export var ratio_multipier : float = 1.0
-@export var direction_fliper : int = 1
+@export var ratio_multiplier : float = 1.0
+@export var direction_flipper : int = 1
 @export var type : PortType = PortType.SHAFT_END
 @export var allow_ports: Array[PortType]
 

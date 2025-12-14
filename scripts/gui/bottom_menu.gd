@@ -34,9 +34,9 @@ func _process(_delta: float) -> void:
 		query.exclude = exclusion_list
 		var collision = camera.get_world_3d().direct_space_state.intersect_ray(query)
 		if collision:
-			var point = collision.position
-			var normal = collision.normal
-			var target_pos = point + (normal * 0.5)
+			var point: Vector3 = collision.position
+			var normal: Vector3 = collision.normal
+			var target_pos: Vector3 = point + (normal * 0.5)
 			instance.global_position = target_pos.snapped(Vector3(1, 1, 1))
 			canPlace = instance.check_placement()
 
@@ -78,16 +78,14 @@ func _input(event: InputEvent) -> void:
 			cancel_placement()
 		if event.is_action_pressed("rotateBuildingX"):
 			instance.global_rotation.x += PI/2
-			last_rotation = instance.global_rotation
 		if event.is_action_pressed("rotateBuildingY"):
 			instance.global_rotation.y += PI/2
-			last_rotation = instance.global_rotation
 		if event.is_action_pressed("rotateBuildingZ"):
 			instance.global_rotation.z += PI/2
-			last_rotation = instance.global_rotation
 
 func place() -> void:
 	instance.placed()
+	last_rotation = instance.global_rotation
 	canPlace = false
 	var current_data: BuildingData = get_data_from_slot(selected_index)
 	instance = null

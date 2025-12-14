@@ -1,4 +1,4 @@
-class_name Gear extends PowerNode
+class_name Cog extends PowerNode
 
 @onready var cogMesh = $Gear
 

@@ -1,11 +1,5 @@
 class_name PowerNode extends Building
 
-enum PortType{
-	SHAFT_END,
-	COG_SMALL,
-	COG_BIG
-}
-
 @warning_ignore("unused_signal")
 signal network_changed
 
@@ -85,30 +79,25 @@ func break_part() -> void:
 func calculate_speed(local_port: PowerNodePort, connected_node: PowerNode, connected_port: PowerNodePort) -> float:
 	var my_axis: Vector3 = get_port_rotation_axis(local_port)
 	var connection_axis: Vector3 = connected_node.get_port_rotation_axis(connected_port)
-	var vector_to_connected: Vector3 = (connected_node.global_position - self.global_position)
-	if vector_to_connected.length_squared() > 0.001:
-		vector_to_connected = vector_to_connected.normalized()
-	else:
-		vector_to_connected = Vector3.ZERO
-	var input_speed : float= connected_node.speed* connected_port.ratio_multipier * connected_port.direction_fliper
+	var input_speed : float= connected_node.speed* connected_port.ratio_multiplier * connected_port.direction_flipper
 	var dot: float = my_axis.dot(connection_axis)
 	if abs(dot) > 0.9:
-		if local_port.type == PortType.COG_BIG or local_port.type == PortType.COG_SMALL:
+		if local_port.type == PowerNodePort.PortType.COG_BIG or local_port.type == PowerNodePort.PortType.COG_SMALL:
 			input_speed *= -signf(dot)
 		else:
 			input_speed *= signf(dot)
 	else:
-		var interaction_plane : Vector3 = my_axis.cross(connection_axis)
-		var planar_check: float = interaction_plane.dot(vector_to_connected)
-		if is_zero_approx(planar_check):
-			var my_tangent: Vector3 = my_axis.cross(vector_to_connected)
-			var other_tangent: Vector3 = vector_to_connected.cross(connection_axis)
-			var alignment: float = my_tangent.dot(other_tangent)
-			input_speed *= signf(alignment)
+		var vector_to_connected: Vector3 = (connected_node.global_position - self.global_position)
+		if vector_to_connected.length_squared() > 0.001:
+			vector_to_connected = vector_to_connected.normalized()
 		else:
-			print("How do we get here")
-			input_speed *= signf(planar_check)
-	var resulting_speed = (input_speed * local_port.direction_fliper) / local_port.ratio_multipier
+			vector_to_connected = Vector3.ZERO
+
+		var my_tangent: Vector3 = my_axis.cross(vector_to_connected)
+		var other_tangent: Vector3 = vector_to_connected.cross(connection_axis)
+		var alignment: float = my_tangent.dot(other_tangent)
+		input_speed *= signf(alignment)
+	var resulting_speed = (input_speed * local_port.direction_flipper) / local_port.ratio_multiplier
 	return resulting_speed
 
 func interacted() -> void:

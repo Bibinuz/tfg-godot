@@ -64,6 +64,10 @@ func on_network_change(start_node: PowerNode, grid:Array[PowerNode] = []) -> voi
 	if generators.is_empty(): return
 
 	solve_speeds(generators)
+	if not last_built_node:
+		solve_speeds(generators)
+	#Si el node eliminat separa la xarxa en dos parts les dos xarxes compartiran potencia encara que no hi hagi connexió fisica, s'hauria de recalcular en base a les connexions del node eliminat
+	# En el moment d'eliminar el node retornar un llistat amb les connexions d'aquell node per recalcular cada una de les xarxes individualment
 	recalculate_grid_stress(grid)
 
 
@@ -94,7 +98,9 @@ func solve_speeds(generators: Array[Generator]) -> void:
 					else:
 						#print(last_built_node.name)
 						#all_power_nodes.erase(last_built_node)
-						last_built_node.break_part()
+						if last_built_node:
+							last_built_node.break_part()
+							last_built_node = null
 						#last_built_node = all_power_nodes[-1]
 						#break_priority(connection.node, current_node)
 						return
