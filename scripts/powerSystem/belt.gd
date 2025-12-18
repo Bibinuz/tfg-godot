@@ -25,14 +25,14 @@ func _input(event: InputEvent) -> void:
 					if place_position.x == 0 and place_position.y == 0 and place_position.z != 0:
 						GlobalScript.bottom_menu.place()
 						position = connected_shafts[0].position - center_position
-						rotation = Vector3(0,0,0)
-						scale.x = place_position.length() + 0.5
+						rotation = Vector3(0,PI/2,0)
+						scale.x = place_position.length() + 0.75
 
 					elif place_position.x != 0 and place_position.y == 0 and place_position.z == 0:
 						GlobalScript.bottom_menu.place()
 						position = connected_shafts[0].position - center_position
 						rotation = Vector3(0,0,0)
-						scale.x = place_position.length() + 0.5
+						scale.x = place_position.length() + 0.75
 
 
 
