@@ -45,7 +45,7 @@ func _on_area_exited(area: Area3D, local_port: PowerNodePort) -> void:
 		for connection : PortConnection in connections[local_port]:
 			if connection.port == area:
 				connections[local_port].erase(connection)
-				print("Errased: ", connection.node)
+				#print("Errased: ", connection.node)
 			call_deferred("emit_signal", "network_changed", self)
 
 func get_connections() -> Array[PowerNode]:

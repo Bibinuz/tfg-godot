@@ -30,7 +30,7 @@ _data = {
 point_count = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xc0s"]
-size = Vector3(0, 1, 1)
+size = Vector3(0, 0.6, 0.6)
 
 [node name="Belt" type="Node3D" node_paths=PackedStringArray("meshes", "areas", "collisions")]
 script = ExtResource("1_80u0l")
@@ -74,7 +74,7 @@ shape = SubResource("BoxShape3D_qhsjt")
 shape = SubResource("BoxShape3D_ggcs6")
 
 [node name="BeltPath" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42393482, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2637322, 0)
 curve = SubResource("Curve3D_2xc0s")
 
 [node name="BeltConnections" type="Area3D" parent="."]
@@ -97,3 +97,4 @@ size = Vector3(0, 0.6, 0.6)
 material = ExtResource("5_3rkua")
 
 [connection signal="area_entered" from="BeltConnections" to="." method="_on_belt_connections_area_entered"]
+[connection signal="area_exited" from="BeltConnections" to="." method="_on_belt_connections_area_exited"]
