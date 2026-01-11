@@ -32,7 +32,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	meshes[0].set_instance_shader_parameter("speed", speed/2)
+	if is_overstressed:
+		meshes[0].set_instance_shader_parameter("speed", 0)
+	else:
+		meshes[0].set_instance_shader_parameter("speed", speed/2)
 	if is_placed:
 		manage_belt_items(delta)
 
@@ -127,10 +130,10 @@ func manage_belt_items(delta: float) -> void:
 				for area: Area3D in overlapping_areas:
 					var other_item = area.get_parent()
 					if other_item is VisualMaterial:
-						if speed > 0 and other_item.progress > item.progress:
+						if speed > 0 and other_item.progress > item.progress and inventory.has(other_item):
 							is_blocked=true
 							break
-						elif speed < 0 and other_item.progress < item.progress:
+						elif speed < 0 and other_item.progress < item.progress and inventory.has(other_item):
 							is_blocked=true
 							break
 			if speed > 0 and is_equal_approx(item.progress, belt_length):
@@ -190,25 +193,9 @@ func try_pass_item(item:VisualMaterial) -> bool:
 func _on_port_area_entered(area: Area3D, port_id: String) -> void:
 	if area.get_parent() and area.get_parent() is Belt and area.get_parent().is_placed and self.is_placed:
 		var other: Belt = area.get_parent()
-		var vector_to_other: Vector3 = self.global_position - other.global_position
-		var other_dir_z = other.global_transform.basis.z
-		var distance_along_belt = vector_to_other.dot(other_dir_z)
-		var connection_point = (other.belt_length / 2.0) + distance_along_belt
-		connection_point = clamp(connection_point, 0.0, other.belt_length)
-		if port_id == "front":
-			ft_conn = BeltConnection.new(other, connection_point)
-		elif port_id == "back":
-			bk_conn = BeltConnection.new(other, connection_point)
-		return
-		#AAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH
-		#AAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH
-		#AAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH
-		#AAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH
-		#AAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH
-		#AAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHH
-		#var vector_to_other: Vector3 = self.global_position-other.global_position
+		var vector_to_other: Vector3 = self.global_position-other.global_position
 		var parallel: bool = self.global_rotation == other.global_rotation
-		#var connection_point: float = 0.0
+		var connection_point: float = 0.0
 		if parallel:
 			if vector_to_other.x < 0 or vector_to_other.z < 0:
 				connection_point = other.belt_length
@@ -216,7 +203,7 @@ func _on_port_area_entered(area: Area3D, port_id: String) -> void:
 				connection_point = 0.0
 		else:
 			if is_zero_approx(self.global_rotation.y):
-				connection_point = (other.belt_length)/2 - vector_to_other.z
+				connection_point = (other.belt_length)/2 + vector_to_other.z
 			else:
 				connection_point = (other.belt_length)/2 - vector_to_other.x
 		if port_id == "front":
