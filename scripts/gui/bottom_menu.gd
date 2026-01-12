@@ -115,7 +115,7 @@ func get_data_from_slot(index: int) -> BuildingData:
 func instantiate_building(data: BuildingData) -> void:
 	if data.scene:
 		instance = data.scene.instantiate()
-		get_parent().add_child(instance)
+		GlobalScript.build_list.add_child(instance)
 		isPlacing = true
 
 func cancel_placement():

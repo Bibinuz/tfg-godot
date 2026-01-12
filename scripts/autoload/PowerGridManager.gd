@@ -1,6 +1,5 @@
 extends Node
 
-var all_power_nodes: Array[PowerNode] = []
 var last_built_node : PowerNode = null
 
 var last_power_calculation: float = 0.0
@@ -16,13 +15,13 @@ func _physics_process(_delta: float) -> void:
 	pass
 
 func register_node(node: PowerNode) -> void:
-	if not all_power_nodes.has(node):
-		all_power_nodes.append(node)
+	if not GlobalScript.build_list.all_power_nodes.has(node):
+		GlobalScript.build_list.all_power_nodes.append(node)
 		node.network_changed.connect(on_network_change)
 
 func unregister_node(node: PowerNode) -> void:
-	if all_power_nodes.has(node):
-		all_power_nodes.erase(node)
+	if GlobalScript.build_list.all_power_nodes.has(node):
+		GlobalScript.build_list.all_power_nodes.erase(node)
 		if node.is_connected("network_changed", on_network_change):
 			node.network_changed.disconnect(on_network_change)
 			recalculate_all_grids()
@@ -45,7 +44,7 @@ func recalculate_grid_stress(grid: Array[PowerNode]) -> void:
 
 func recalculate_all_grids() -> void:
 	var visited: Array[PowerNode] = []
-	for node: PowerNode in  all_power_nodes:
+	for node: PowerNode in  GlobalScript.build_list.all_power_nodes:
 		if not visited.has(node) and node:
 			var grid: Array[PowerNode] = find_whole_grid_bfs(node)
 			on_network_change(node, grid)

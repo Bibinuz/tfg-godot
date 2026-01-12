@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_au8ox")
-name = "Iron Ore"
+name = "Iron ore"
 max_stack = 64
 icon = ExtResource("1_iyvbi")
 metadata/_custom_type_script = "uid://berfinvgyspa2"

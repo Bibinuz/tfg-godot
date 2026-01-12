@@ -120,7 +120,8 @@ func calculate_speed(local_port: PowerNodePort, connected_node: PowerNode, conne
 	return resulting_speed
 
 func interacted() -> void:
-	print(name, ": ", get_rotation_axis())
+	print(self, ": ", type_string(typeof(self)))
+	print(connections)
 	return
 
 	##print(self.name, ": ", self.connections)

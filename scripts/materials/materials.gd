@@ -17,3 +17,14 @@ func add(n: int, is_node: bool = false, purity: ResourceNode.Purity = ResourceNo
 		amount = max_stack
 		return left_amount
 	return 0
+
+func remove(n: int) -> int:
+	if amount-n > 0:
+		amount -= n
+		return n
+	elif amount == 0:
+		return 0
+	else:
+		var t: int = amount
+		amount = 0
+		return t

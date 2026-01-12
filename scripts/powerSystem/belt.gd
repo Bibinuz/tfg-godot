@@ -15,14 +15,15 @@ var nodes_connected: Array[Node3D] = []
 var allowed_connections: Array = [Shaft, MachinePort]
 var belt_length: float = 0.0
 var inventory: Array[VisualMaterial] = []
+var trying_to_pass: VisualMaterial = null
 var belt_vector: Vector3 = Vector3.ZERO
+var ft_conn: BeltConnection = null
+var bk_conn: BeltConnection = null
 
 @onready var path: Path3D = $BeltPath
 @onready var front_port: Area3D = $FrontPort
 @onready var back_port: Area3D = $BackPort
 
-var ft_conn: BeltConnection = null
-var bk_conn: BeltConnection = null
 
 func _ready() -> void:
 	super()
@@ -75,7 +76,7 @@ func place_belt() -> void:
 
 			for connection in nodes_connected:
 				if connection is MachinePort:
-					connection.port_has_belt = self
+					connection.port_belt = self
 			meshes[0].material_override = shaderMaterial
 
 func scale_path() -> void:
@@ -111,7 +112,7 @@ func interacted() -> void:
 func break_part() -> void:
 	for connection in nodes_connected:
 		if connection is MachinePort:
-			connection.port_has_belt = null
+			connection.port_belt = null
 	super()
 
 func is_shaft_in_ends(shaft: Shaft) -> void:
@@ -119,7 +120,6 @@ func is_shaft_in_ends(shaft: Shaft) -> void:
 		break_part()
 
 func manage_belt_items(delta: float) -> void:
-	var to_next_point: VisualMaterial = null
 	for item: VisualMaterial in inventory:
 
 		if item:
@@ -137,9 +137,9 @@ func manage_belt_items(delta: float) -> void:
 							is_blocked=true
 							break
 			if speed > 0 and is_equal_approx(item.progress, belt_length):
-				to_next_point = item
+				trying_to_pass = item
 			elif speed < 0 and is_equal_approx(item.progress, 0):
-				to_next_point = item
+				trying_to_pass = item
 
 			if not is_blocked:
 				var movement: float = item.progress+speed*delta/2
@@ -151,11 +151,11 @@ func manage_belt_items(delta: float) -> void:
 					item.progress = 0
 
 				#item.visual_material.progress = item.progress
-	if to_next_point:
-		if try_pass_item(to_next_point):
-			inventory.erase(to_next_point)
-			path.remove_child(to_next_point)
-			to_next_point.queue_free()
+	if trying_to_pass:
+		if try_pass_item(trying_to_pass):
+			inventory.erase(trying_to_pass)
+			path.remove_child(trying_to_pass)
+			trying_to_pass.queue_free()
 		#inventory.erase(to_erase)
 		#to_erase.visual_material.queue_free()
 		#to_erase.queue_free()
@@ -168,7 +168,7 @@ func see_inventory_state() -> void:
 func try_add_item(visual_mat: VisualMaterial, position_in_belt: float) -> bool:
 	var is_there_an_item: bool = false
 	for item in inventory:
-		var n: float = 1
+		var n: float = 0.5
 		if item.progress + n > position_in_belt and item.progress - n < position_in_belt:
 			is_there_an_item = true
 			break
@@ -189,6 +189,12 @@ func try_pass_item(item:VisualMaterial) -> bool:
 
 	return false
 
+func try_remove_item(item:VisualMaterial)-> bool:
+	for i: VisualMaterial in inventory:
+		if i == item:
+			inventory.erase(i)
+			return true
+	return false
 
 func _on_port_area_entered(area: Area3D, port_id: String) -> void:
 	if area.get_parent() and area.get_parent() is Belt and area.get_parent().is_placed and self.is_placed:
@@ -197,7 +203,7 @@ func _on_port_area_entered(area: Area3D, port_id: String) -> void:
 		var parallel: bool = self.global_rotation == other.global_rotation
 		var connection_point: float = 0.0
 		if parallel:
-			if vector_to_other.x < 0 or vector_to_other.z < 0:
+			if vector_to_other.x < 0 or vector_to_other.z > 0:
 				connection_point = other.belt_length
 			else:
 				connection_point = 0.0

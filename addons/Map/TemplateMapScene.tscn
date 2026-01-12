@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://oj3blpxqf1bl"]
+[gd_scene load_steps=12 format=3 uid="uid://oj3blpxqf1bl"]
 
 [ext_resource type="PackedScene" uid="uid://bwggrf7sbmkcv" path="res://addons/PlayerCharacter/PlayerCharacterScene.tscn" id="1_oh4cu"]
+[ext_resource type="Script" uid="uid://cso46v0lhdkyq" path="res://scripts/WorldScripts/level.gd" id="1_y5876"]
+[ext_resource type="Script" uid="uid://dqt7tbh6x7o3a" path="res://scripts/WorldScripts/buildList.gd" id="2_vqfbn"]
 [ext_resource type="PackedScene" uid="uid://d3vun6oeko313" path="res://scenes/IronNode.tscn" id="4_p7x60"]
 [ext_resource type="PackedScene" uid="uid://dnf0u2ljad6tc" path="res://scenes/gui.tscn" id="4_w47yd"]
 [ext_resource type="PackedScene" uid="uid://5ayyguytjdbd" path="res://scenes/bottom_menu.tscn" id="7_vqfbn"]
@@ -25,6 +27,10 @@ albedo_color = Color(0.6353835, 0.9999998, 0.63693315, 1)
 size = Vector3(100, 1, 100)
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_y5876")
+
+[node name="Buildings" type="Node" parent="."]
+script = ExtResource("2_vqfbn")
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -55,8 +61,6 @@ shape = SubResource("BoxShape3D_da4oa")
 [node name="GUI" parent="." instance=ExtResource("4_w47yd")]
 
 [node name="BottomMenu" parent="." instance=ExtResource("7_vqfbn")]
-
-[node name="Buildings" type="Node" parent="."]
 
 [node name="IronNode" parent="." instance=ExtResource("4_p7x60")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.5, 3)

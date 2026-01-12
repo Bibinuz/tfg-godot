@@ -10,9 +10,7 @@ class_name Building extends Node3D
 @export var areas : Array[Area3D]
 @export var collisions : Array[StaticBody3D]
 
-
 @export var is_placed : bool = false
-
 
 func _ready() -> void:
 	if not is_placed:
@@ -51,10 +49,10 @@ func break_part() -> void:
 	self.queue_free()
 
 func spawn_debris():
+	var spawn_pos: Vector3 = global_position if is_inside_tree() else position
 	var debris: GPUParticles3D = debris_scene.instantiate()
-	if not get_tree().current_scene.get_children().has(debris):
-		get_tree().current_scene.add_child.call_deferred(debris)
-		debris.global_position = global_position
+	get_tree().current_scene.add_child(debris)
+	debris.global_position = spawn_pos
 
 func toggle_collisions(enabled: bool) -> void:
 	for body:StaticBody3D in collisions:

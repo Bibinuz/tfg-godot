@@ -1,6 +1,5 @@
 class_name Machine extends PowerNode
 
-
 enum Strategy {
 	FORWARD,
 	GENERATE,
@@ -22,6 +21,10 @@ func _ready() -> void:
 	super()
 	cost_per_speed = -1
 
+func _process(_delta: float) -> void:
+
+	pass
+
 func set_power_state() -> void:
 	if is_overstressed:
 		production_speed = 0
@@ -35,9 +38,9 @@ func set_power_state() -> void:
 
 func break_part() -> void:
 	for port: MachinePort in input_ports:
-		if port and port.port_has_belt:
-			port.port_has_belt.break_part()
+		if port and port.port_belt:
+			port.port_belt.break_part()
 	for port: MachinePort in output_ports:
-		if port and port.port_has_belt:
-			port.port_has_belt.break_part()
+		if port and port.port_belt:
+			port.port_belt.break_part()
 	super()
