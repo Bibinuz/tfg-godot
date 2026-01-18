@@ -1,0 +1,22 @@
+Abans de parlar de la meva implementació tècnica és important explicar com funciona el sistema de nodes i escenes de Godot.
+Cada element del joc és un node amb unes propietats i funcions diferents. Hi ha tres famílies de nodes principals, nodes 3D, nodes 2D i nodes de GUI. Dins de la família de nodes 3D tenim exemples com: 
+Camera3D
+StaticBody3D
+MeshInstance3D
+CollisionShape3D
+RayCast3D
+... 
+
+Cada un d’aquests nodes és una classe diferent amb les seves propietats, però totes hereten de la classe Node3D. Els nodes de GUI ens permeten crear interfícies d’usuari on utilitzarem l’estructura jeràrquica per encapsular cada element d'interfície com ara:
+Container
+Label
+TextureRect
+Button
+Panel
+ItemList
+...
+
+Les escenes seran definides per l’usuari i són una col·lecció de nodes de qualsevol tipus, una escena pot ser el jugador, la interfície d’usuari o un nivell sencer d’un joc. Depèn de cada desenvolupador decidir com organitzar. Aquestes escenes es poden afegir a altres escenes per poder així evitar treballar amb grans problemes a la vegada, i tenir-ho tot en mòduls més petits.
+<IMG>
+Figura 6. Escena del jugador
+En l'escena que conté el jugador, figura 6, tenim com a node pare un PlayerCharacter (node propi, hereta de la clase base CharacterBody3D), amb 5 fills, el punt d'anclatge de la camera (CameraHolder), la caixa de col·lisions del personatge (Hitbox), els RayCast3D (Raycasts), el Model i la màquina d’estats encarregada del control del personatge. Aquesta màquina d’estats està iniciada amb nodes buits, aquests nodes són la classe base per a tots els objectes de Godot, i no tenen propietats especials. Podem veure que en el lateral tenim una icona amb un pergamí, això ens indica que hi ha un script vinculat al node, si està en gris vol dir que aquest script és heretat, compartit amb altres nodes de la mateixa classe. Si és blanc ens indica que el node té un script únic.

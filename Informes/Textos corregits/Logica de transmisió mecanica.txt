@@ -1,0 +1,52 @@
+El sistema de transmisió mecànica és una adaptació del sistema existent a Minecraft: Create. Per tant, he volgut simular el seu funcionament, a continuació faré un llistat de les especificacions del sistema, i com s’hauria de comportar sota cada cas específic.
+
+- Tota connexió d’un eix ha de mantenir direcció i velocitat.
+- Tota connexió d’un engranatge ha d’invertir la direcció.
+- Connectar un engranatge petit a un gran a través de les dents de l’engranatge ha de duplicar velocitat, a l’invers la velocitat es divideix.
+- La xarxa no pot superar el límit d’energia subministrada per tot el conjunt de generadors connectats.
+- En cas de superar el límit tot el sistema s’ha d’aturar a l’instant.
+- En cas de tornar a estar per sota del límit, el sistema ha d’entrar en funcionament a l’instant.
+- En cas que un node tingui incoherències en els seus ports connectats s’ha d’eliminar automàticament.
+
+<FIG ./img/ConnectionsExample.png>
+Figura. Mostra de possibles connexions.
+
+La classe principal d’aquest sistema és «PowerNodes». D’aquesta classe hereten tots els elements de la xarxa que afegirem. Cada «PowerNode» tindrà mínim un «PowerNodePort», aquests ports són cubs ubicats allà on es vol que el node tingui un punt de connexió. Aquest port té quatre propietats molt importants: la direcció de gir respecte al node, el modificador de velocitat, el tipus de port que és, i a quins altres ports es pot connectar.
+
+<FIG ./img/PowerNodePort.png>
+Figura. Exemple de port d’un eix.
+
+En la figura <FIG ./img/PowerNodePort.png> podem veure com estan configurats els ports d’un eix bàsic. Podem veure respectivament les propietats: modificador de velocitat («Ratio Multiplier»), direcció de gir («Direction Flipper»), tipus de port («Type»), i connexions permeses («Allow Ports»). Els tipus de port implementats són: «SHAFT_END», «COG_SMALL», «COG_BIG» i «BELT». En cas d’implementar un element que ens permeti invertir gir hauríem de tenir dos ports, un com el de la figura <FIG ./img/PowerNodePort.png> i l’altre amb el «Direction Flipper» a -1, si volguéssim implementar un element que ens permetis duplicar la velocitat de gir hauríem de modificar el «Ratio Multiplier» a 2.
+
+<FIG ./img/ShaftScene.png>
+Figura. Exemple de l’escena d’un eix.
+
+En la figura <FIG ./img/ShaftScene.png> veiem l’exemple de l’eix, amb els dos ports col·locats un a cada extrem de l’objecte.
+
+Aquests ports hereten de la classe base de Godot «Area3D». Això és perquè aquesta classe base té ja té implementat un mètode que en cas d’un altre «Area3D» entri en contacte podem connectar una funció que com argument ens doni l’àrea que ha entrat.
+
+Quan detectem aquesta connexió comprovem que l’altra àrea sigui un «PowerNodePort» i que la connexió sigui vàlida. En cas de connexió vàlida llancem el senyal «network_changed», que indica al «PowerGridManager» que hi ha hagut un canvi en la xarxa a la qual pertany el node, i per tant s’ha de recalcular la xarxa.
+
+Aquest procés de càlcul comença amb un algoritme «Breadth-first search» (BFS), es podria utilitzar també un «Depth-first search» (DFS) en aquest cas, per tal de trobar tots els nodes connectats. Quan volem trobar tots els nodes connectats no hi ha diferència entre utilitzar un BFS o un DFS, però més endavant s'ha d'utilitzar forçosament un BFS, per tant, ja tenim la funció implementada. Una vegada tenim tots aquests nodes busquem quins són els generadors que hi ha a la xarxa, i és a partir d’aquests generadors que comencem a propagar tots els canvis. Per propagar els canvis apliquem un altre BFS. En aquest cas ha de ser aquest algoritme, ja que interessa que els canvis es propaguin capa a capa, que es calculin abans els nodes més pròxims per així detectar els possibles conflictes en els extrems. Per cada node definim la seva velocitat com la calculada en el moment d’afegir-lo a la llista de «per visitar», i iterem per les seves connexions per tal de calcular la velocitat que haurien de tenir per no generar conflictes. En cas de no tenir la connexió una velocitat ja assignada li assignem la calculada. Si ja tenia una velocitat assignada ens assegurem que no hi hagi conflictes. En cas de conflicte eliminem la peça i tornem a començar el procés de càlcul de la xarxa. Si no hi ha conflicte afegim la connexió al llistat de «per visitar». Finalment, quan hem acabat amb el càlcul de les velocitats recorrem tota la xarxa per comprovar que la potència és prou per mantenir la xarxa activa. Tots els generadors sumen les seves potències i la resta d’elements resten.
+
+La part més complexa d’aquest procés és el càlcul de velocitats. Els nodes poden estar situats en qualsevol punt del món i en qualsevol direcció. Per exemple un eix sense girar connectat a un de girat 180 graus semblen el mateix, però si es fa una assignació directa de velocitat, el segon eix girarà en sentit contrari. Per solucionar això fem una sèrie de càlculs amb els vectors de direcció de cada element per comprovar com s’ha de comportar aquella connexió. Per fer aquest càlcul seguirem una sèrie de passos.
+
+<Winput = Wconn X Rconn X Dconn> Càlcul de velocitat d’entrada (1)
+<Alg = A dot B> Càlcul de direcció de gir en nodes paral·lels (2)
+
+<Alg = Sdir dot (1, 1, 1)> Direcció de les cintes mecàniques (3)
+
+<V=(Pconn + Cconn) - (Plocal + Clocal)> Vector del centre del node connectat al centre del node (4)
+<Alg = sgn((A X V) dot (-B X V))> Càlcul de direcció de gir en nodes perpendiculars (5)
+
+<Wres = Winput x Dlocal x Alg / Rlocal> Velocitat resultant (6)
+
+En la primera fórmula obtenim la velocitat d’entrada aparent, sense tenir en compte l’alineació dels dos nodes. Els paràmetres són els següents: Wconn és la velocitat de rotació del node connectat, «Rconn» és el multiplicador de velocitat del port del node connectat i «Dconn» és la direcció del port del node connectat.
+
+En la segona calculem l’alineació de l’eix de rotació propi, A, i l’eix de rotació del port connectat, B. L'alineació es calcula utilitzant el producte escalar entre els dos eixos de rotació. A partir d’aquest punt poden passar dues coses: que el valor Alg sigui 0 o 1/-1.
+
+En cas que Alg sigui 1/-1 significarà que els dos ports són paral·lels. Si els dos ports són del tipus «SHAFT_END» la velocitat del port serà la Winput multiplicada pel signe de Alg. En cas que els ports siguin del tipus «COG» la velocitat serà Winput multiplicada pel negatiu de signe de Alg, per tal d’invertir la direcció de gir.
+
+En el cas que «d» sigui 0 voldrà dir que els dos ports són perpendiculars, aquest es dona quan connectem dos engranatges grans en perpendicular, o quan un eix està connectat a una cinta mecànica. En el segon cas per obtenir la direcció correcta apliquem la tercera fórmula, on Sdir és la direcció de gir de l'eix. En el primer cas, dos engranatges grans en perpendicular, apliquem les fórmules 4 i 5. Amb la fórmula 4 obtenim un vector que va des del centre del node connectat al centre del node actual, Pconn/Plocal són les posicions de l'element en l'escena i Cconn/Clocal és un desplaçament per als casos on el centre de gir del node no correspon en la posició en escena. Finalment calculem l'alineació.
+
+Per acabar, aquesta velocitat Winput, que representa la velocitat del port la convertim a la velocitat interna que ha de tenir el node, utilitzant la sisena fórmula desfem el càlcul fet en la primera, però utilitzant els valors del nostre port i multipliquem per l'alineació final, Alg. Aquest és el valor que retornem perquè el «PowerGridManager» comprovi si hi ha conflicte.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.17)  17 JAN 2026 19:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.15)  18 JAN 2026 21:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -33,7 +33,7 @@ Package: babel 2025/02/14 v25.4 The multilingual framework for pdfLaTeX, LuaLaT
 eX and XeLaTeX
 \babel@savecnt=\count270
 \U@D=\dimen142
-\l@unhyphenated=\language32
+\l@unhyphenated=\language3
 
 (/usr/share/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
@@ -43,7 +43,7 @@ Package babel Info: You haven't specified a language as a class or package
 
 (/usr/share/texmf-dist/tex/generic/babel/nil.ldf
 Language: nil 2025/02/14 v25.4 Nil language
-\l@nil=\language33
+\l@nil=\language4
 ))
 (/usr/share/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2024/09/14 v1.9i multicolumn formatting (FMi)
@@ -480,9 +480,24 @@ ts/enc/dvips/base/8r.enc}
 
 
 ]
+Underfull \hbox (badness 1087) in paragraph at lines 111--117
+\OT1/ptm/m/n/10 (+20) Factorio va ser desenvolupat per l'estudi Txec Wube
+ []
+
+
+
+
+
+[2]
+Underfull \hbox (badness 5985) in paragraph at lines 144--147
+\OT1/ptm/m/n/10 (+20) El mod Create de Minecraft []es desenvolupat per
+ []
+
+
+
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-07.
- (/usr/share/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+57.
+(/usr/share/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 Package microtype Info: Loading generic protrusion settings for font family
@@ -490,119 +505,84 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 2469) in paragraph at lines 107--109
+Underfull \hbox (badness 2469) in paragraph at lines 157--159
 \OT1/ptm/m/n/10 (+20) defineix els comportaments d'interacci[]o, mentre que
  []
 
 
 
-<img/PlayerScene.png, id=12, 493.845pt x 664.4825pt>
+[3]
+<img/PlayerScene.png, id=21, 493.845pt x 664.4825pt>
 File: img/PlayerScene.png Graphic file (type png)
 <use img/PlayerScene.png>
-Package pdftex.def Info: img/PlayerScene.png  used on input line 136.
+Package pdftex.def Info: img/PlayerScene.png  used on input line 185.
 (pdftex.def)             Requested size: 217.66211pt x 292.87001pt.
+
+
+
+Underfull \hbox (badness 1454) in paragraph at lines 206--207
+\OT1/ptm/m/n/10 (+20) que afegirem. Cada "PowerNode" tindr[]a m[]^^Pnim un
+ []
+
+<img/PowerNodePort.png, id=22, 538.01pt x 300.12125pt>
+File: img/PowerNodePort.png Graphic file (type png)
+<use img/PowerNodePort.png>
+Package pdftex.def Info: img/PowerNodePort.png  used on input line 211.
+(pdftex.def)             Requested size: 217.66211pt x 121.42021pt.
+<img/ShaftScene.png, id=23, 632.3625pt x 414.54875pt>
+File: img/ShaftScene.png Graphic file (type png)
+<use img/ShaftScene.png>
+Package pdftex.def Info: img/ShaftScene.png  used on input line 219.
+(pdftex.def)             Requested size: 217.66211pt x 142.68422pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 156--157
-\OT1/ptm/m/n/10 (+20) Cada port de connexi[]o pot aplicar un
- []
-
-
-Underfull \hbox (badness 2941) in paragraph at lines 156--157
-\OT1/pcr/m/n/10 ratio[]multiplier\OT1/ptm/m/n/10 (+20) . Aix[]o permet la creac
-i[]o de
- []
-
-
-Underfull \hbox (badness 3623) in paragraph at lines 156--157
-\OT1/ptm/m/n/10 (+20) reductores i multiplicadores on un engranatge gran
- []
-
-
-Underfull \hbox (badness 1436) in paragraph at lines 156--157
-\OT1/ptm/m/n/10 (+20) (\OT1/pcr/m/n/10 cog[]big.tscn\OT1/ptm/m/n/10 (+20) ) pot
- fer girar un de petit al doble
+Underfull \hbox (badness 1400) in paragraph at lines 225--226
+[]\OT1/ptm/m/n/10 (+20) Aquests ports hereten de la classe base de Godot
  []
 
 
 
-
-Underfull \hbox (badness 3333) in paragraph at lines 166--167
-\OT1/ptm/m/n/10 (+20) La connectivitat entre cintes es gestiona mitjan[]ant
- []
+[4 <./img/PlayerScene.png (PNG copy)> <./img/PowerNodePort.png (PNG copy)>]
 
 
-Underfull \hbox (badness 1237) in paragraph at lines 166--167
-\OT1/ptm/m/n/10 (+20) un []^^Ptem arriba al final del seu recorregut param[]etr
-ic
- []
-
-
-Underfull \hbox (badness 2065) in paragraph at lines 172--173
-\OT1/ptm/m/n/10 (+20) per a les cintes (\OT1/pcr/m/n/10 belt.gdshader\OT1/ptm/m
-/n/10 (+20) ) que anima
- []
-
-
-Underfull \hbox (badness 5533) in paragraph at lines 173--174
-[]\OT1/ptm/b/n/10 (+20) Rotaci[]o F[]^^Psica: \OT1/ptm/m/n/10 (+20) Els compone
-nts visuals dels
- []
-
-
-Underfull \hbox (badness 2057) in paragraph at lines 178--179
-\OT1/ptm/m/n/10 (+20) La implementaci[]o del sistema de pot[]encia mec[]anica
- []
-
-
-Underfull \hbox (badness 5077) in paragraph at lines 182--183
-\OT1/ptm/m/n/10 (+20) Vull agrair al meu tutor el seu suport i guiatge
- []
-
-
-Underfull \hbox (badness 1472) in paragraph at lines 197--198
-\OT1/ptm/m/n/10 (+20) El seg[]uent bloc de codi (simplificat) mostra com el
+Underfull \hbox (badness 10000) in paragraph at lines 255--255
+|[]\OT1/phv/b/sc/12 (+20) Construcci[]o i interacci[]o amb
  []
 
 
 
-[3 <./img/PlayerScene.png (PNG copy)>]
-
-
-
-[4
-
-] (./article.aux)
+[5 <./img/ShaftScene.png (PNG copy)>] (./article.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8398 strings out of 474560
- 141863 string characters out of 5750494
- 596439 words of memory out of 5000000
- 31087 multiletter control sequences out of 15000+600000
- 598616 words of font info for 237 fonts, out of 8000000 for 9000
- 350 hyphenation exceptions out of 8191
- 79i,12n,93p,1264b,422s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 8436 strings out of 475171
+ 142423 string characters out of 5767095
+ 599065 words of memory out of 5000000
+ 31063 multiletter control sequences out of 15000+600000
+ 597789 words of font info for 252 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 79i,12n,93p,1698b,376s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/font
-s/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.pf
-b></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-
-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw
-/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr
-/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/share/texmf-dist/font
-s/type1/urw/zapfding/uzdr.pfb>
-Output written on article.pdf (4 pages, 197127 bytes).
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/s
+hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/ur
+w/courier/ucrr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
+></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-d
+ist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/tim
+es/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/sh
+are/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on article.pdf (5 pages, 332071 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 99 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 75270 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 71184 words of extra memory for PDF output out of 74296 (max. 10000000)
 
