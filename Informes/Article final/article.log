@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.15)  18 JAN 2026 21:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.15)  21 JAN 2026 18:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -449,29 +449,26 @@ Package lettrine.sty Info: Targeted height = 29.3449pt
 (lettrine.sty)             Lettrine height = 29.34491pt (E);
 (lettrine.sty)             reported on input line 90.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
-6.
+4.
 
 (/usr/share/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Underfull \hbox (badness 1769) in paragraph at lines 95--97
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 105--107
 \OT1/ptm/m/n/10 (+20) La meva motivaci[]o per desenvolupar aquest projecte
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 95--97
+Underfull \hbox (badness 10000) in paragraph at lines 105--107
 []\OT1/ptm/m/n/10 (+20) es principalment la d'aprendre com funciona el
  []
 
 
-Underfull \hbox (badness 1571) in paragraph at lines 95--97
+Underfull \hbox (badness 1571) in paragraph at lines 105--107
 \OT1/ptm/m/n/10 (+20) desenvolupament d'un videojoc. Els meus referents
  []
-
-
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -480,24 +477,9 @@ ts/enc/dvips/base/8r.enc}
 
 
 ]
-Underfull \hbox (badness 1087) in paragraph at lines 111--117
-\OT1/ptm/m/n/10 (+20) Factorio va ser desenvolupat per l'estudi Txec Wube
- []
-
-
-
-
-
-[2]
-Underfull \hbox (badness 5985) in paragraph at lines 144--147
-\OT1/ptm/m/n/10 (+20) El mod Create de Minecraft []es desenvolupat per
- []
-
-
-
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-57.
-(/usr/share/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+17.
+ (/usr/share/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 Package microtype Info: Loading generic protrusion settings for font family
@@ -505,66 +487,76 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 2469) in paragraph at lines 157--159
+Underfull \hbox (badness 2469) in paragraph at lines 117--118
 \OT1/ptm/m/n/10 (+20) defineix els comportaments d'interacci[]o, mentre que
  []
 
-
-
-[3]
-<img/PlayerScene.png, id=21, 493.845pt x 664.4825pt>
-File: img/PlayerScene.png Graphic file (type png)
-<use img/PlayerScene.png>
-Package pdftex.def Info: img/PlayerScene.png  used on input line 185.
-(pdftex.def)             Requested size: 217.66211pt x 292.87001pt.
-
-
-
-Underfull \hbox (badness 1454) in paragraph at lines 206--207
-\OT1/ptm/m/n/10 (+20) que afegirem. Cada "PowerNode" tindr[]a m[]^^Pnim un
- []
-
-<img/PowerNodePort.png, id=22, 538.01pt x 300.12125pt>
-File: img/PowerNodePort.png Graphic file (type png)
-<use img/PowerNodePort.png>
-Package pdftex.def Info: img/PowerNodePort.png  used on input line 211.
-(pdftex.def)             Requested size: 217.66211pt x 121.42021pt.
-<img/ShaftScene.png, id=23, 632.3625pt x 414.54875pt>
-File: img/ShaftScene.png Graphic file (type png)
-<use img/ShaftScene.png>
-Package pdftex.def Info: img/ShaftScene.png  used on input line 219.
-(pdftex.def)             Requested size: 217.66211pt x 142.68422pt.
+<img/DiagramaModuls.png, id=12, 792.9625pt x 201.75375pt>
+File: img/DiagramaModuls.png Graphic file (type png)
+<use img/DiagramaModuls.png>
+Package pdftex.def Info: img/DiagramaModuls.png  used on input line 121.
+(pdftex.def)             Requested size: 435.32422pt x 110.76172pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 1400) in paragraph at lines 225--226
+
+
+
+[2]
+<img/PlayerScene.png, id=19, 493.845pt x 664.4825pt>
+File: img/PlayerScene.png Graphic file (type png)
+<use img/PlayerScene.png>
+Package pdftex.def Info: img/PlayerScene.png  used on input line 156.
+(pdftex.def)             Requested size: 217.66211pt x 292.87001pt.
+
+
+
+Underfull \hbox (badness 1454) in paragraph at lines 177--178
+\OT1/ptm/m/n/10 (+20) que afegirem. Cada "PowerNode" tindr[]a m[]^^Pnim un
+ []
+
+<img/PowerNodePort.png, id=20, 538.01pt x 300.12125pt>
+File: img/PowerNodePort.png Graphic file (type png)
+<use img/PowerNodePort.png>
+Package pdftex.def Info: img/PowerNodePort.png  used on input line 182.
+(pdftex.def)             Requested size: 217.66211pt x 121.42021pt.
+
+
+[3 <./img/DiagramaModuls.png> <./img/PlayerScene.png (PNG copy)> <./img/PowerNo
+dePort.png (PNG copy)>]
+<img/ShaftScene.png, id=25, 632.3625pt x 414.54875pt>
+File: img/ShaftScene.png Graphic file (type png)
+<use img/ShaftScene.png>
+Package pdftex.def Info: img/ShaftScene.png  used on input line 190.
+(pdftex.def)             Requested size: 217.66211pt x 142.68422pt.
+
+Underfull \hbox (badness 1400) in paragraph at lines 196--197
 []\OT1/ptm/m/n/10 (+20) Aquests ports hereten de la classe base de Godot
  []
 
 
 
-[4 <./img/PlayerScene.png (PNG copy)> <./img/PowerNodePort.png (PNG copy)>]
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--255
-|[]\OT1/phv/b/sc/12 (+20) Construcci[]o i interacci[]o amb
- []
+[4 <./img/ShaftScene.png (PNG copy)>]
 
 
 
-[5 <./img/ShaftScene.png (PNG copy)>] (./article.aux)
+[5
+
+] (./article.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8436 strings out of 475171
- 142423 string characters out of 5767095
- 599065 words of memory out of 5000000
- 31063 multiletter control sequences out of 15000+600000
- 597789 words of font info for 252 fonts, out of 8000000 for 9000
+ 8435 strings out of 475171
+ 142624 string characters out of 5767095
+ 597115 words of memory out of 5000000
+ 31073 multiletter control sequences out of 15000+600000
+ 597361 words of font info for 244 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  79i,12n,93p,1698b,376s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
@@ -579,10 +571,10 @@ w/courier/ucrr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 ist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/tim
 es/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/sh
 are/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on article.pdf (5 pages, 332071 bytes).
+Output written on article.pdf (5 pages, 348429 bytes).
 PDF statistics:
- 99 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
+ 102 PDF objects out of 1000 (max. 8388607)
+ 59 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 71184 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 71189 words of extra memory for PDF output out of 74296 (max. 10000000)
 

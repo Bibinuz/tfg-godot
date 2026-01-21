@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1768767778.00919 "/home/bibinuz/Godot/tfg-godot/Informes/Article final/article.tex" "article.pdf" "article" 1768767778.32724 0
-  "/home/bibinuz/Godot/tfg-godot/Informes/Article final/article.tex" 1768767777.6409 29037 0207889cc2eaeee9b1c3197f631444df ""
+["pdflatex"] 1769016739.63922 "/home/bibinuz/Godot/tfg-godot/Informes/Article final/article.tex" "article.pdf" "article" 1769016739.95035 0
+  "/home/bibinuz/Godot/tfg-godot/Informes/Article final/article.tex" 1769016739.58321 21758 51eb8a2eb2069f3463e256be2bcfa32f ""
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1767555874 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1767555874 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1767555874 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -98,8 +98,9 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1767555874 42087 b0f9697c952c8f5a8eede4134282cb0d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1768496342 5311557 9da84c45f5b388655502706482323571 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1768496319 2008249 3362a03b4048fc8b94c07e7e5fbab65b ""
-  "article.aux" 1768767778.28891 2069 aab986b2a5804f70e1b4efae0b3d4f4b "pdflatex"
-  "article.tex" 1768767777.6409 29037 0207889cc2eaeee9b1c3197f631444df ""
+  "article.aux" 1769016739.91321 2304 b66347b3c03377ec282a9bf4bce05ca5 "pdflatex"
+  "article.tex" 1769016739.58321 21758 51eb8a2eb2069f3463e256be2bcfa32f ""
+  "img/DiagramaModuls.png" 1769015274.94553 68830 5f16d8c93e7494dba01ad03ef6916953 ""
   "img/PlayerScene.png" 1768737207.97776 63131 c0074179c61216a43a9e3fe473c0d140 ""
   "img/PowerNodePort.png" 1768764522.86184 18218 f7740420526e1ca0da84510f98ed1234 ""
   "img/ShaftScene.png" 1768766149.41911 71005 ac1ac3791667c75b04692e18669674d0 ""
