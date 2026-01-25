@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://7rlaqoenwbax"]
 
-[ext_resource type="Script" uid="uid://dbs3rlw2bpk23" path="res://addons/Map/cog.gd" id="2_3b40t"]
+[ext_resource type="Script" uid="uid://dbs3rlw2bpk23" path="res://scripts/powerSystem/cog.gd" id="2_3b40t"]
 [ext_resource type="Script" uid="uid://cw0kcf37813c4" path="res://scripts/interactionComponent/interactioncomponent.gd" id="2_uaayq"]
 [ext_resource type="Script" uid="uid://dbuhw48ma2lnv" path="res://scripts/powerSystem/PowerNodePort.gd" id="3_4ck22"]
 
@@ -91,13 +91,13 @@ radius = 0.2
 height = 0.2
 radius = 0.8
 
-[node name="cog_big" type="Node3D" node_paths=PackedStringArray("meshes", "areas", "collisions")]
+[node name="cog_big" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 script = ExtResource("2_3b40t")
 cost_per_speed = 2
-meshes = [NodePath("Gear")]
-areas = [NodePath("Area3D")]
-collisions = [NodePath("StaticBody3D")]
+meshes_path = Array[NodePath]([NodePath("Gear")])
+areas_path = Array[NodePath]([NodePath("Area3D")])
+collisions_path = Array[NodePath]([NodePath("StaticBody3D")])
 metadata/_custom_type_script = "uid://dbs3rlw2bpk23"
 
 [node name="Gear" type="MeshInstance3D" parent="."]

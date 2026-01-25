@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://bto1023pw2jd3"]
 
-[ext_resource type="Script" uid="uid://dbs3rlw2bpk23" path="res://addons/Map/cog.gd" id="2_i8oap"]
+[ext_resource type="Script" uid="uid://dbs3rlw2bpk23" path="res://scripts/powerSystem/cog.gd" id="2_i8oap"]
 [ext_resource type="Script" uid="uid://cw0kcf37813c4" path="res://scripts/interactionComponent/interactioncomponent.gd" id="2_xgo0e"]
 [ext_resource type="Script" uid="uid://dbuhw48ma2lnv" path="res://scripts/powerSystem/PowerNodePort.gd" id="3_xgo0e"]
 
@@ -86,12 +86,12 @@ size = Vector3(0.1, 0.1, 0.1)
 height = 0.2
 radius = 0.3
 
-[node name="cog_small" type="Node3D" node_paths=PackedStringArray("meshes", "areas", "collisions")]
+[node name="cog_small" type="Node3D"]
 script = ExtResource("2_i8oap")
 cost_per_speed = 1
-meshes = [NodePath("Gear")]
-areas = [NodePath("Area3D")]
-collisions = [NodePath("StaticBody3D")]
+meshes_path = Array[NodePath]([NodePath("Gear")])
+areas_path = Array[NodePath]([NodePath("Area3D")])
+collisions_path = Array[NodePath]([NodePath("Area3D")])
 
 [node name="Gear" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_rlceh")

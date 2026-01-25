@@ -252,13 +252,13 @@ size = Vector3(0.9, 0.9, 0.9)
 [sub_resource type="BoxShape3D" id="BoxShape3D_k577w"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="multiplier" type="Node3D" node_paths=PackedStringArray("meshes", "areas", "collisions")]
+[node name="multiplier" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_dxqaf")
 cost_per_speed = 4
-meshes = [NodePath("Port1"), NodePath("Port2"), NodePath("Cube"), NodePath("Cube_001"), NodePath("Cube_002"), NodePath("Cube_003"), NodePath("Cube_004")]
-areas = [NodePath("PlacementArea")]
-collisions = [NodePath("StaticBody3D")]
+meshes_path = Array[NodePath]([NodePath("Port1"), NodePath("Port2"), NodePath("Cube"), NodePath("Cube_001"), NodePath("Cube_002"), NodePath("Cube_003"), NodePath("Cube_004")])
+areas_path = Array[NodePath]([NodePath("PlacementArea")])
+collisions_path = Array[NodePath]([NodePath("StaticBody3D")])
 
 [node name="Port1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)

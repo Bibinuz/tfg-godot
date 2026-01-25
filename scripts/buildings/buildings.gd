@@ -6,9 +6,15 @@ class_name Building extends Node3D
 @export var debris_scene: PackedScene = preload("res://scenes/poof.tscn")
 
 @export_group("Meshes, areas and collistions of the building")
-@export var meshes : Array[MeshInstance3D]
-@export var areas : Array[Area3D]
-@export var collisions : Array[StaticBody3D]
+@export var meshes_path : Array[NodePath]
+@export var areas_path : Array[NodePath]
+@export var collisions_path : Array[NodePath]
+
+var meshes: Array[MeshInstance3D]
+var areas : Array[Area3D]
+var collisions: Array [StaticBody3D]
+
+
 
 @export var is_placed : bool = false
 
@@ -18,6 +24,26 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	pass
+
+func _enter_tree() -> void:
+	load_node_exports()
+
+func load_node_exports() -> void:
+	for path: NodePath in meshes_path:
+		if not path.is_empty() and has_node(path):
+			var node = get_node(path)
+			if not node is MeshInstance3D: continue
+			meshes.append(node)
+	for path: NodePath in areas_path:
+		if not path.is_empty() and has_node(path):
+			var node = get_node(path)
+			if not node is Area3D: continue
+			areas.append(node)
+	for path: NodePath in collisions_path:
+		if not path.is_empty() and has_node(path):
+			var node = get_node(path)
+			if not node is StaticBody3D: continue
+			collisions.append(node)
 
 func check_placement() -> bool:
 	for area in areas:

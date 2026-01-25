@@ -32,12 +32,12 @@ point_count = 2
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xc0s"]
 size = Vector3(0, 0.6, 0.6)
 
-[node name="Belt" type="Node3D" node_paths=PackedStringArray("meshes", "areas", "collisions")]
+[node name="Belt" type="Node3D"]
 script = ExtResource("1_80u0l")
 shaderMaterial = ExtResource("3_2xc0s")
-meshes = [NodePath("MeshInstance3D")]
-areas = [NodePath("Area3D")]
-collisions = [NodePath("StaticBody3D")]
+meshes_path = Array[NodePath]([NodePath("MeshInstance3D")])
+areas_path = Array[NodePath]([NodePath("Area3D")])
+collisions_path = Array[NodePath]([NodePath("StaticBody3D")])
 
 [node name="BeltTool" type="Node" parent="."]
 

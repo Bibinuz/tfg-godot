@@ -26,15 +26,15 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_24v10"]
 material = SubResource("StandardMaterial3D_24v10")
 
-[node name="Trash" type="Node3D" node_paths=PackedStringArray("input_ports", "meshes", "areas", "collisions")]
+[node name="Trash" type="Node3D" node_paths=PackedStringArray("input_ports")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_w6jqc")
 input_ports = [NodePath("ItemPorts/In1")]
 strategy = 2
 cost_per_speed = 8
-meshes = [NodePath("MeshInstance3D"), NodePath("MeshInstance3D2")]
-areas = [NodePath("PlacementArea")]
-collisions = [NodePath("Collisions")]
+meshes_path = Array[NodePath]([NodePath("MeshInstance3D"), NodePath("MeshInstance3D2")])
+areas_path = Array[NodePath]([NodePath("PlacementArea")])
+collisions_path = Array[NodePath]([NodePath("Collisions")])
 metadata/_custom_type_script = "uid://duoww18go7gyi"
 
 [node name="Collisions" type="StaticBody3D" parent="."]

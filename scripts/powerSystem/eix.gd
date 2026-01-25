@@ -26,6 +26,4 @@ func placed() -> void:
 	super()
 
 func interacted() -> void:
-	print(global_position)
-	#for c: PowerNodePort in connections:
-		#print(connections[c][0].node)
+	print(connections)

@@ -11,24 +11,34 @@ signal network_changed
 # Connections[local_port] = [other_node, other_port]
 # Dictionary[PowerNodePort, Array[PortConnection]]
 var connections : Dictionary[PowerNodePort, Array]= {}
-var speed : float = 0.0
-var is_overstressed : bool = false
-var is_running : bool = false
-var is_broken : bool = false
+@export_storage var speed : float = 0.0
+@export_storage var is_overstressed : bool = false
+@export_storage var is_running : bool = false
+@export_storage var is_broken : bool = false
 
 func _ready() -> void:
 	super()
 	for port in $ConnectionPorts.get_children():
 		if port is PowerNodePort:
+			connections.set(port, [])
+			if is_placed: continue
 			port.monitorable = false
 			port.monitoring = false
-			port.area_entered.connect(_on_area_entered.bind(port))
-			port.area_exited.connect(_on_area_exited.bind(port))
-			connections.set(port, [])
 
 func _process(delta: float) -> void:
 	super(delta)
-	pass
+
+func _enter_tree() -> void:
+	super()
+	connect_signals()
+
+func connect_signals() -> void:
+	for port in $ConnectionPorts.get_children():
+		if port is PowerNodePort:
+			port.area_entered.connect(_on_area_entered.bind(port))
+			port.area_exited.connect(_on_area_exited.bind(port))
+
+
 
 func _on_area_entered(other_port: Area3D, local_port: PowerNodePort) -> void:
 	if not other_port is PowerNodePort:

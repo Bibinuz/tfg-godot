@@ -311,7 +311,7 @@ size = Vector3(0.1, 0.9, 0.9)
 [sub_resource type="SphereShape3D" id="SphereShape3D_hrgr1"]
 radius = 0.25
 
-[node name="Miner" type="Node3D" node_paths=PackedStringArray("output_ports", "meshes", "areas", "collisions")]
+[node name="Miner" type="Node3D" node_paths=PackedStringArray("output_ports")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_qcpy4")
 extraction_time = 15.0
@@ -319,9 +319,9 @@ output_ports = [NodePath("ItemPorts/Out1")]
 strategy = 1
 cost_per_speed = 8
 center = Vector3(0, 2, 0)
-meshes = [NodePath("Support"), NodePath("Drill"), NodePath("OutPort")]
-areas = [NodePath("PlacementArea")]
-collisions = [NodePath("Collisions")]
+meshes_path = Array[NodePath]([NodePath("Support"), NodePath("Drill"), NodePath("OutPort")])
+areas_path = Array[NodePath]([NodePath("PlacementArea")])
+collisions_path = Array[NodePath]([NodePath("Collisions")])
 metadata/_custom_type_script = "uid://dkp11tw81unke"
 
 [node name="Support" type="MeshInstance3D" parent="."]

@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0ygbbejhp73l"]
+
+[ext_resource type="Script" uid="uid://dqt7tbh6x7o3a" path="res://scripts/WorldScripts/buildList.gd" id="1_74c3e"]
+[ext_resource type="PackedScene" uid="uid://b42n1nedoytet" path="res://scenes/test_motor.tscn" id="2_4tljf"]
+[ext_resource type="PackedScene" uid="uid://lpqhjxv7crjj" path="res://scenes/shaft.tscn" id="4_5sgfd"]
+[ext_resource type="PackedScene" uid="uid://bto1023pw2jd3" path="res://scenes/cog_small.tscn" id="6_0jifq"]
+[ext_resource type="PackedScene" uid="uid://7rlaqoenwbax" path="res://scenes/cog_big.tscn" id="8_ogbhd"]
+
+[node name="Buildings" type="Node"]
+script = ExtResource("1_74c3e")
+
+[node name="Generator" parent="." instance=ExtResource("2_4tljf")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, 5)
+is_passive = false
+speed = 1.0
+is_running = true
+is_placed = true
+
+[node name="shaft" parent="." instance=ExtResource("4_5sgfd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, 4)
+speed = 1.0
+is_placed = true
+
+[node name="cog_small" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, 3)
+speed = 1.0
+is_placed = true
+
+[node name="@Node3D@19" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2, 3)
+speed = -1.0
+is_placed = true
+
+[node name="@Node3D@20" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1, 1, 3)
+speed = -1.0
+is_placed = true
+
+[node name="cog_big" parent="." instance=ExtResource("8_ogbhd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, 2)
+speed = 1.0
+is_placed = true
+
+[node name="@Node3D@23" parent="." instance=ExtResource("8_ogbhd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -2, 1, 2)
+speed = -1.0
+is_placed = true
+
+[node name="@Node3D@30" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, 7.54979e-08, -1, 0, 1, 7.54979e-08, -3, 2, 2)
+speed = 2.0
+is_placed = true
+
+[node name="@Node3D@33" parent="." instance=ExtResource("4_5sgfd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -3, 2, 1)
+speed = 2.0
+is_placed = true
+
+[node name="@Node3D@35" parent="." instance=ExtResource("8_ogbhd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -3, 2, 0)
+speed = 2.0
+is_placed = true
+
+[node name="@Node3D@37" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -2, 1, 0)
+speed = -4.0
+is_placed = true
+
+[node name="@Node3D@39" parent="." instance=ExtResource("4_5sgfd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -2, 1, -1)
+speed = -4.0
+is_placed = true
+
+[node name="@Node3D@41" parent="." instance=ExtResource("8_ogbhd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -2, 1, -2)
+speed = -4.0
+is_placed = true
+
+[node name="@Node3D@43" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, -3)
+speed = 8.0
+is_placed = true
+
+[node name="@Node3D@44" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, -2)
+speed = 8.0
+is_placed = true
+
+[node name="@Node3D@46" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2, -2)
+speed = -8.0
+is_placed = true
+
+[node name="@Node3D@47" parent="." instance=ExtResource("6_0jifq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1, 2, -2)
+speed = 8.0
+is_placed = true
+
+[editable path="shaft"]
