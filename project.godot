@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="tfg"
-run/main_scene="uid://oj3blpxqf1bl"
+run/main_scene="uid://b42byghwraswy"
 config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=144
 config/icon="res://icon.svg"

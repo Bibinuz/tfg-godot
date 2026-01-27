@@ -26,4 +26,5 @@ func placed() -> void:
 	super()
 
 func interacted() -> void:
-	print(connections)
+	super()
+	#print(connections)

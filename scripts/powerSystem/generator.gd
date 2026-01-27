@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	#if not is_overstressed and is_running:
 
 func interacted() -> void:
-	print(PowerGridManager.find_whole_grid_bfs(self))
+	#print(PowerGridManager.find_whole_grid_bfs(self))
 	super()
 
 

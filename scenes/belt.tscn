@@ -1,11 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dh3x05jge21qi"]
+[gd_scene load_steps=11 format=3 uid="uid://dh3x05jge21qi"]
 
 [ext_resource type="Script" uid="uid://cfdannkv1b6f6" path="res://scripts/powerSystem/belt.gd" id="1_80u0l"]
 [ext_resource type="Material" uid="uid://cylmvdwlflngl" path="res://assets/materials/belt.tres" id="3_2xc0s"]
 [ext_resource type="Script" uid="uid://cw0kcf37813c4" path="res://scripts/interactionComponent/interactioncomponent.gd" id="4_km0u5"]
-[ext_resource type="Material" uid="uid://cltrm3fwh6lr3" path="res://assets/materials/placement_no.tres" id="5_3rkua"]
 [ext_resource type="Script" uid="uid://dbuhw48ma2lnv" path="res://scripts/powerSystem/PowerNodePort.gd" id="5_km0u5"]
-[ext_resource type="Material" uid="uid://dnt6bc2uwkv37" path="res://assets/materials/placement_yes.tres" id="5_qhsjt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xc0s"]
 albedo_color = Color(0.27752772, 0.27752772, 0.27752772, 1)
@@ -83,18 +81,10 @@ collision_layer = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 shape = SubResource("BoxShape3D_2xc0s")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="BackPort/Port"]
-size = Vector3(0, 0.6, 0.6)
-material = ExtResource("5_3rkua")
-
 [node name="FrontPort" type="Area3D" parent="."]
 
 [node name="Port" type="CollisionShape3D" parent="FrontPort"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 shape = SubResource("BoxShape3D_2xc0s")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="FrontPort/Port"]
-size = Vector3(0, 0.6, 0.6)
-material = ExtResource("5_qhsjt")
 
 [connection signal="area_exited" from="BackPort" to="." method="_on_belt_connections_area_exited"]

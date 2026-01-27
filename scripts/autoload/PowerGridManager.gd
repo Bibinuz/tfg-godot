@@ -62,30 +62,29 @@ func on_network_change(start_node: PowerNode, grid:Array[PowerNode] = []) -> voi
 			node.speed = 0.0
 	if generators.is_empty(): return
 
-	solve_speeds(generators)
-	if not last_built_node:
-		solve_speeds(generators)
+	var broken_node_connections: Array[PowerNode] = solve_speeds(generators)
+	if broken_node_connections != []:
+		for node in broken_node_connections:
+			on_network_change(node)
 	#Si el node eliminat separa la xarxa en dos parts les dos xarxes compartiran potencia encara que no hi hagi connexió fisica, s'hauria de recalcular en base a les connexions del node eliminat
 	# En el moment d'eliminar el node retornar un llistat amb les connexions d'aquell node per recalcular cada una de les xarxes individualment
 	recalculate_grid_stress(grid)
 
 
 
-func solve_speeds(generators: Array[Generator]) -> void:
+func solve_speeds(generators: Array[Generator]) -> Array[PowerNode]:
 	var node_speeds: Dictionary = {}
 	var queue: Array[PowerNode] = []
 	var visited: Array[PowerNode] = []
 	for generator: Generator in generators:
 		node_speeds[generator] = generator.speed
 		queue.append(generator)
-
 	while not queue.is_empty():
 		var current_node : PowerNode= queue.pop_front()
 		if current_node in visited: continue
 		visited.append(current_node)
 		current_node.speed = node_speeds[current_node]
 		for local_port: PowerNodePort in current_node.connections:
-
 			for connection : PortConnection in current_node.connections[local_port]:
 				if not connection or not connection.node or connection.node.is_broken: continue
 				var proposed_connection_speed: float = connection.node.calculate_speed(connection.port, current_node, local_port)
@@ -98,13 +97,16 @@ func solve_speeds(generators: Array[Generator]) -> void:
 						#print(last_built_node.name)
 						#all_power_nodes.erase(last_built_node)
 						if last_built_node:
+							var broken_node_connections: Array[PowerNode] = last_built_node.get_connections()
 							last_built_node.break_part()
 							last_built_node = null
+							return broken_node_connections
 						#last_built_node = all_power_nodes[-1]
 						#break_priority(connection.node, current_node)
-						return
+						return []
 				node_speeds[connection.node] = proposed_connection_speed
 				queue.append(connection.node)
+	return []
 
 
 

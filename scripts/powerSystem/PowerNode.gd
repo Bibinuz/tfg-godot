@@ -17,27 +17,29 @@ var connections : Dictionary[PowerNodePort, Array]= {}
 @export_storage var is_broken : bool = false
 
 func _ready() -> void:
-	super()
 	for port in $ConnectionPorts.get_children():
 		if port is PowerNodePort:
 			connections.set(port, [])
-			if is_placed: continue
+			port.area_entered.connect(_on_area_entered.bind(port))
+			port.area_exited.connect(_on_area_exited.bind(port))
+			if is_placed:
+				PowerGridManager.register_node(self)
+				continue
 			port.monitorable = false
 			port.monitoring = false
+	super()
 
 func _process(delta: float) -> void:
 	super(delta)
 
 func _enter_tree() -> void:
+	#connect_signals()
 	super()
-	connect_signals()
 
 func connect_signals() -> void:
 	for port in $ConnectionPorts.get_children():
 		if port is PowerNodePort:
-			port.area_entered.connect(_on_area_entered.bind(port))
-			port.area_exited.connect(_on_area_exited.bind(port))
-
+			pass
 
 
 func _on_area_entered(other_port: Area3D, local_port: PowerNodePort) -> void:
@@ -55,14 +57,14 @@ func _on_area_exited(area: Area3D, local_port: PowerNodePort) -> void:
 		for connection : PortConnection in connections[local_port]:
 			if connection.port == area:
 				connections[local_port].erase(connection)
-				#print("Errased: ", connection.node)
-			call_deferred("emit_signal", "network_changed", self)
+				#print("Errased: ", connection.node
+	call_deferred("emit_signal", "network_changed", self)
 
 func get_connections() -> Array[PowerNode]:
 	var node_connections: Array[PowerNode] = []
 	for port: PowerNodePort in connections:
 		for connection: PortConnection in connections[port]:
-			if connection.node and not connection.node.is_broken:
+			if connection.node and not connection.node.is_broken and not node_connections.has(connection.node):
 				node_connections.append(connection.node)
 	return node_connections
 
@@ -132,6 +134,7 @@ func calculate_speed(local_port: PowerNodePort, connected_node: PowerNode, conne
 func interacted() -> void:
 	print(self, ": ", type_string(typeof(self)))
 	print(connections)
+	print(self.get_signal_connection_list("network_changed"))
 	return
 
 	##print(self.name, ": ", self.connections)
