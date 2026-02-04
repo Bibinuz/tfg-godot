@@ -4,5 +4,11 @@
 
 [resource]
 script = ExtResource("1_4e5ld")
+input_materials = Dictionary[String, int]({
+"Iron ore": 2
+})
+output_materials = Dictionary[String, int]({
+"Iron ingot": 1
+})
 time = 16.0
 metadata/_custom_type_script = "uid://cbvq6n1ov4h40"

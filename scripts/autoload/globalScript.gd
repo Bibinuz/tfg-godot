@@ -28,6 +28,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if focused_element.bk_conn:
 			print("BACK  CONN: ", focused_element.bk_conn, " : ", focused_element.bk_conn.pos)
 		print("LENGTH: ", focused_element.belt_length)
+	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_PAGEUP:
+		print_orphan_nodes()
 
 func save_game() -> void:
 
@@ -91,13 +93,20 @@ func load_game(container: BuildList, save_path: String) -> Node:
 		new_container.owner = parent
 	return new_container
 
+
+#Proces super ineficient, el temps de proces del forn es de 2.87ms i aquesta funcio ocupa 2.84ms
+@onready var iron_ore: VisualMaterial 		= load("res://scenes/iron_ore.tscn").instantiate() as VisualMaterial
+@onready var iron_ingot: VisualMaterial 	= load("res://scenes/iron_ingot.tscn").instantiate() as VisualMaterial
+@onready var coal_ore: VisualMaterial 		= load("res://scenes/coal_ore.tscn").instantiate() as VisualMaterial
 func give_visual_material(mat: String) -> VisualMaterial:
 	var vis_mat: VisualMaterial = null
 	if mat == "Iron ore":
-		vis_mat = load("res://scenes/iron_ore.tscn").instantiate() as VisualMaterial
+		vis_mat = iron_ore.duplicate()
 	elif mat == "Coal ore":
-		vis_mat = load("res://scenes/coal_ore.tscn").instantiate() as VisualMaterial
+		vis_mat = coal_ore.duplicate()
 	elif mat == "Iron ingot":
-		vis_mat = load("res://scenes/iron_ingot.tscn").instantiate() as VisualMaterial
-
-	return vis_mat
+		vis_mat = iron_ingot.duplicate()
+	if vis_mat:
+		return vis_mat
+	vis_mat.queue_free()
+	return null

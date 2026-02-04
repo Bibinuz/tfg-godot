@@ -6,6 +6,7 @@ var port_belt: Belt = null
 
 
 func _process(_delta: float) -> void:
+
 	pass
 
 func interacted()-> void:
@@ -21,6 +22,9 @@ func try_pass_material(mat: Materials) -> bool:
 			elif port_belt.global_rotation.y > 1.5 and (port_belt.global_position - global_position).z < 0:
 				pos_in_belt = port_belt.belt_length
 
-			if port_belt.try_add_item(vis_mat, pos_in_belt):
+			if port_belt.try_add_item(pos_in_belt):
+				port_belt.path.add_child(vis_mat)
+				vis_mat.progress = pos_in_belt
 				return true
+			vis_mat.queue_free()
 	return false

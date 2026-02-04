@@ -14,7 +14,6 @@ class BeltConnection:
 var nodes_connected: Array[Node3D] = []
 @export_storage var allowed_connections: Array = [Shaft, MachinePort]
 @export_storage var belt_length: float = 0.0
-var inventory: Array[VisualMaterial] = []
 var trying_to_pass: VisualMaterial = null
 @export_storage var belt_vector: Vector3 = Vector3.ZERO
 var ft_conn: BeltConnection = null
@@ -120,7 +119,7 @@ func is_shaft_in_ends(shaft: Shaft) -> void:
 		break_part()
 
 func manage_belt_items(delta: float) -> void:
-	for item: VisualMaterial in inventory:
+	for item: VisualMaterial in path.get_children():
 		if item:
 			var overlapping_areas: Array[Area3D] = item.area.get_overlapping_areas()
 			var overlap_count: int = len(overlapping_areas)
@@ -129,10 +128,10 @@ func manage_belt_items(delta: float) -> void:
 				for area: Area3D in overlapping_areas:
 					var other_item = area.get_parent()
 					if other_item is VisualMaterial:
-						if speed > 0 and other_item.progress > item.progress and inventory.has(other_item):
+						if speed > 0 and other_item.progress > item.progress and path.get_children().has(other_item):
 							is_blocked=true
 							break
-						elif speed < 0 and other_item.progress < item.progress and inventory.has(other_item):
+						elif speed < 0 and other_item.progress < item.progress and path.get_children().has(other_item):
 							is_blocked=true
 							break
 			if speed > 0 and is_equal_approx(item.progress, belt_length):
@@ -142,44 +141,48 @@ func manage_belt_items(delta: float) -> void:
 			if not is_blocked and not is_overstressed:
 				item.progress = item.progress+speed*delta/2
 	if trying_to_pass:
-		if try_pass_item(trying_to_pass):
-			inventory.erase(trying_to_pass)
-			path.remove_child(trying_to_pass)
-			trying_to_pass.queue_free()
+		try_pass_item(trying_to_pass)
 
 func see_inventory_state() -> void:
 	print("Inventory state")
-	for item: VisualMaterial in inventory:
+	for item: VisualMaterial in path.get_children():
 		print(item, " : ", item.progress_ratio)
-
-func try_add_item(visual_mat: VisualMaterial, position_in_belt: float) -> bool:
+func try_add_item(position_in_belt: float) -> bool:
 	var is_there_an_item: bool = false
-	for item in inventory:
+	for item in path.get_children():
+		if not item: continue
 		var n: float = 0.5
 		if item.progress + n > position_in_belt and item.progress - n < position_in_belt:
 			is_there_an_item = true
 			break
 	if not is_there_an_item:
-		inventory.append(visual_mat)
-		inventory[-1].progress = position_in_belt
-		path.add_child(visual_mat)
 		return true
+	#visual_mat.queue_free()
 	return false
 
 func try_pass_item(item:VisualMaterial) -> bool:
 	if not item: return false
 	if is_equal_approx(item.progress_ratio, 1) and bk_conn:
-		if bk_conn.belt.try_add_item(item.duplicate(), bk_conn.pos):
+		if bk_conn.belt.try_add_item(bk_conn.pos):
+			make_transfer(item, bk_conn)
 			return true
 	elif is_zero_approx(item.progress_ratio) and ft_conn:
-		if ft_conn.belt.try_add_item(item.duplicate(), ft_conn.pos):
+		if ft_conn.belt.try_add_item(ft_conn.pos):
+			make_transfer(item, ft_conn)
 			return true
 	return false
 
+func make_transfer(item: VisualMaterial , conn: BeltConnection) -> void:
+	path.remove_child(item)
+	conn.belt.path.add_child(item)
+	item.progress = conn.pos
+	#conn.belt.path.add_child(item)
+
 func try_remove_item(item:VisualMaterial)-> bool:
-	for i: VisualMaterial in inventory:
+	for i: VisualMaterial in path.get_children():
 		if i == item:
-			inventory.erase(i)
+			path.remove_child(i)
+			i.queue_free()
 			return true
 	return false
 

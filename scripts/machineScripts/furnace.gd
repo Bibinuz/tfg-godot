@@ -18,7 +18,7 @@ var elapsed_time: float = 0.0
 func _ready() -> void:
 	await get_tree().physics_frame
 	super()
-	aviable_formulas.append(load("res://Resources/FormulasData/IronOreToIngot.tres"))
+	aviable_formulas.append(load("res://Resources/FormulasData/IronOreToIngot.tres") as Formula)
 	gui.hide()
 
 func _process(delta: float) -> void:
@@ -31,13 +31,16 @@ func get_rotation_axis() -> Vector3:
 		return global_transform.basis.x.normalized()
 
 func process_resources(delta: float) -> void:
-	return
 	if raw_material:
-		for formula: Formula in aviable_formulas:
+		active_formula = aviable_formulas[0]
+		#for formula: Formula in aviable_formulas:
 			#print(aviable_formulas)
-			for input in formula.input_materials:
-				if input == raw_material.name:
-					active_formula = formula
+			#for input in formula.input_materials:
+				#print("No raw material")
+				#if input == raw_material.name:
+					#active_formula = formula
+
+
 
 	try_input()
 	if abs(speed) > 0 and not is_overstressed:
@@ -48,14 +51,27 @@ func interacted() -> void:
 	if fuel:
 		print(fuel.name)
 		print(fuel.amount)
+		print(remaining_fuel)
 	else:
-		print(fuel)
+		print("No fuel")
 	if raw_material:
 		print(raw_material.name)
 		print(raw_material.amount)
-		print(raw_material)
 	else:
-		print(raw_material)
+		print("No raw material")
+
+	if active_formula:
+		print(active_formula)
+		print(elapsed_time)
+		print(active_formula.output_materials.keys())
+	else:
+		print("No formula")
+
+	if processed_material:
+		print(processed_material.name)
+		print(processed_material.amount)
+	else:
+		print("No processed material")
 	#print(connections)
 	#print(speed)
 	#print(raw_material.amount)
@@ -90,7 +106,6 @@ func try_add_to_inventory(belt: Belt, stack: Materials) -> Materials:
 		stack.amount = 0
 	if to_pass.material.name == stack.name and stack.amount < stack.max_stack:
 		stack.amount += 1
-		belt.inventory.erase(to_pass)
 		belt.path.remove_child(to_pass)
 		to_pass.queue_free()
 	return stack
@@ -100,17 +115,19 @@ func try_input() -> void:
 	raw_material = try_port_input(input_ports[1], raw_material)
 
 func process_formula(delta: float) -> void:
-	elapsed_time += delta*abs(speed)
-	if active_formula:
+	if active_formula and remaining_fuel > 50 and raw_material and raw_material.amount >= active_formula.input_materials[raw_material.name]:
 		if elapsed_time > active_formula.time:
 			elapsed_time = 0
-			if processed_material and active_formula.output_materials.has(processed_material.name):
+			remaining_fuel -= 50
+			raw_material.amount -= active_formula.input_materials[raw_material.name]
+			if processed_material and processed_material.amount < processed_material.max_stack and active_formula.output_materials.has(processed_material.name):
 				processed_material.amount += active_formula.output_materials[processed_material.name]
 			else:
-				# com assignar el material????
-				processed_material = null
-		pass
-	pass
+				processed_material = GlobalScript.give_visual_material(active_formula.output_materials.keys()[0]).material
+				processed_material.amount = 1
+
+		else:
+			elapsed_time += delta*abs(speed)
 
 func try_output() -> void:
 	if processed_material:
@@ -121,7 +138,7 @@ func try_output() -> void:
 			processed_material = null
 	if fuel:
 		if fuel.amount > 0:
-			if remaining_fuel < 500:
+			if remaining_fuel <500:
 				remaining_fuel+= fuel.energy
 				fuel.remove(1)
 			else:

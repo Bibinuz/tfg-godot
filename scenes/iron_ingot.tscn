@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bw0h0kp24bmbs"]
 
 [ext_resource type="Script" uid="uid://biabriu637tk7" path="res://scripts/materials/visualMaterial.gd" id="1_h4q65"]
-[ext_resource type="Resource" uid="uid://dmuorwgkindl4" path="res://Resources/MaterialData/ironOre.tres" id="2_35k7r"]
+[ext_resource type="Resource" uid="uid://3k7ongnr3bn1" path="res://Resources/MaterialData/ironIngot.tres" id="2_h4q65"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qira4"]
 resource_name = "ore"
@@ -46,7 +46,7 @@ size = Vector3(0.76988035, 0.24359864, 0.5596094)
 [node name="IronOre" type="PathFollow3D" unique_id=151671386 node_paths=PackedStringArray("area", "meshes")]
 loop = false
 script = ExtResource("1_h4q65")
-material = ExtResource("2_35k7r")
+material = ExtResource("2_h4q65")
 area = NodePath("Area3D")
 meshes = NodePath("Meshes")
 metadata/_custom_type_script = "uid://biabriu637tk7"
@@ -57,7 +57,7 @@ metadata/_custom_type_script = "uid://biabriu637tk7"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07790904, 0, 0)
 
 [node name="Cube" type="MeshInstance3D" parent="Meshes" unique_id=1122350278]
-transform = Transform3D(-3.2991046e-08, 0, 1.4524416, 0, 0.3815913, 0, -0.75474715, 0, -6.348824e-08, 0, 0, 0)
+transform = Transform3D(-3.2991046e-08, 0, 1.4524416, 0, 0.5683502, 0, -0.75474715, 0, -6.348824e-08, 0, 0.042919606, 0)
 mesh = SubResource("ArrayMesh_51ii1")
 skeleton = NodePath("")
 

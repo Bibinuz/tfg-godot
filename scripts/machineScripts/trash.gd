@@ -16,5 +16,4 @@ func accept_input() -> void:
 		var temp: Belt = input_ports[0].port_belt
 		if temp.trying_to_pass:
 			if temp.try_remove_item(temp.trying_to_pass):
-				print("Erased")
 				temp.trying_to_pass.queue_free()
