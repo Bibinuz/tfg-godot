@@ -22,8 +22,6 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	if not is_placed:
 		toggle_collisions(false)
-	else:
-		toggle_collisions(true)
 
 func _process(_delta: float) -> void:
 	pass

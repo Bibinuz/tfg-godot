@@ -19,9 +19,9 @@ var MAIN_MENU: String = "res://scenes/main_menu.tscn"
 func _process(_delta: float) -> void:
 	if pending_load_action:
 		if get_tree() and get_tree().current_scene and get_tree().current_scene is Level:
-			pending_load_action = false
 			print(build_list, " ",folder_save_path+file_save_path)
 			load_game(folder_save_path+file_save_path)
+			pending_load_action = false
 			PowerGridManager.recalculate_all_grids()
 
 
@@ -56,26 +56,6 @@ func save_game() -> void:
 	save_file.close()
 	return
 
-#	_recursive_set_owner(build_list, build_list)
-#	var save_node: PackedScene = PackedScene.new()
-#	var result = save_node.pack(build_list)
-#	if result == OK:
-#		var save_path: String = folder_save_path + file_save_path
-#		WorkerThreadPool.add_task(_save_file_task.bind(save_node, save_path))
-#	else:
-#		push_error("Error packing scene: " + str(result))
-#	pass
-
-func _save_file_task(packed_scene: PackedScene, path: String) -> void:
-	ResourceSaver.save(packed_scene, path)
-	print("Saved correctly")
-
-func _recursive_set_owner(node: Node, root: Node) -> void:
-	if node != root:
-		node.owner = root
-	for child in node.get_children():
-		_recursive_set_owner(child, root)
-
 func load_game(save_path: String) -> void:
 	if not FileAccess.file_exists(save_path):
 		push_warning("Save file not found.")
@@ -101,31 +81,9 @@ func load_game(save_path: String) -> void:
 			if i == "filename" or i == "parent":
 				continue
 			new_object.set(i, node_data[i])
+	save_file.close()
+	MessageBus.load_finished.emit()
 
-
-
-#if not FileAccess.file_exists(save_path):
-#	push_warning("Save file not found.")
-#	return container
-#print(save_path)
-#var packed_scene: PackedScene = load(save_path) as PackedScene
-#if not packed_scene:
-#	push_error("Failed to load PackedScene.")
-#	return container
-#
-#var new_container: BuildList = packed_scene.instantiate()
-#print(container)
-#var parent = container.owner
-#var old_name = container.name
-#container.name = old_name+"_trash"
-#new_container.name = old_name
-#
-##parent.remove_child(container)
-#container.queue_free()
-#parent.call_deferred("add_child", new_container)
-#if parent:
-#	new_container.owner = parent
-#return new_container
 
 
 #Proces super ineficient, el temps de proces del forn es de 2.87ms i aquesta funcio ocupa 2.84ms

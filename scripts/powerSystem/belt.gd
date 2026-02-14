@@ -28,7 +28,6 @@ func _ready() -> void:
 	super()
 	path.curve = path.curve.duplicate()
 
-
 func _process(delta: float) -> void:
 	super(delta)
 	time_accum += delta
@@ -48,6 +47,8 @@ func _input(event: InputEvent) -> void:
 
 func placed() -> void:
 	super()
+	await get_tree().physics_frame
+	await get_tree().physics_frame
 	bind_ports()
 	scale_path()
 	scale_connection_points()
@@ -55,6 +56,10 @@ func placed() -> void:
 		if connection is MachinePort:
 			connection.port_belt = self
 	meshes[0].material_override = shaderMaterial
+	for body: Node3D in areas[0].get_overlapping_bodies():
+		if body is MachinePort and !body.port_belt:
+			print("Connected")
+			body.port_belt = self
 
 func bind_ports() -> void:
 	front_port.area_entered.connect(_on_port_area_entered.bind("front"))
@@ -66,10 +71,8 @@ func place_belt() -> void:
 	if GlobalScript.focused_element is Shaft or GlobalScript.focused_element is MachinePort:
 		placement_green()
 		if len(nodes_connected) == 0:
-			print("First one")
 			nodes_connected.append(GlobalScript.focused_element)
 		elif len(nodes_connected) == 1 and not nodes_connected.has(GlobalScript.focused_element):
-			print("Second one")
 			nodes_connected.append(GlobalScript.focused_element)
 			var place_position: Vector3 = nodes_connected[0].global_position - nodes_connected[1].global_position
 			var center_position = place_position/2
@@ -119,7 +122,6 @@ func get_port_rotation_axis(_port: PowerNodePort) -> Vector3:
 
 func interacted() -> void:
 	super()
-	#print(self, ": ", global_position, ": ", belt_length, ": ", global_rotation)
 	#see_inventory_state()
 
 func break_part() -> void:
@@ -197,7 +199,7 @@ func make_transfer(item: VisualMaterial , conn: BeltConnection) -> void:
 		if item.get_parent():
 			item.get_parent().call_deferred("remove_child", item)
 		conn.belt.path.call_deferred("add_child", item)
-		item.progress = conn.pos
+		item.call_deferred("set", "progress", conn.pos)
 	#conn.belt.path.add_child(item)
 
 func try_remove_item(item:VisualMaterial)-> bool:

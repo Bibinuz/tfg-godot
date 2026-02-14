@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 
 func interacted() -> void:
 	super()
-	print(extracting_from)
+	print(extracting.amount)
 
 func placed() -> void:
 	super()

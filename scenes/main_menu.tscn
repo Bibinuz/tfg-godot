@@ -351,6 +351,7 @@ theme_override_font_sizes/font_size = 32
 text = "Load game"
 
 [node name="Tutorials" type="Button" parent="MainScreen/MarginContainer/VBoxContainer" unique_id=376703085]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Tutorials (WIP)"
